@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Safe SS tools — SS Academy</title>
+  <meta name="description" content="How to judge if a Minecraft screenshare tool is safe: a 7-point rubric, Ocean and Echo notes, Sysinternals, and the scam red flags.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2357d17a'/%3E%3Crect%20width='16'%20height='5'%20fill='%232c7a48'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-block"></span>SS&nbsp;ACADEMY<small>// training</small></a>
+    <nav class="nav">
+      <a href="index.html">Learn</a>
+      <a href="practice.html">Practice</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <div class="hero">
+      <p class="kicker">Toolbox // trust, not hype</p>
+      <h1>Safe tools,<br><em>verified yourself.</em></h1>
+      <p>
+        An SS tool runs during a live investigation — often on a player's machine, always in front
+        of a recording. A wrong download here means malware in your staff team or your players.
+        Use the rubric below on <i>any</i> tool someone hands you, ours included.
+      </p>
+    </div>
+
+    <section>
+      <h2 class="section-title">The 7-point safety rubric</h2>
+      <p class="section-sub">Score a tool before it ever touches a case. Three misses and it doesn't ship to your staff.</p>
+      <ol class="rubric">
+        <li><div><b>Official source only</b><span>Download from the project's own domain over HTTPS — never a Discord DM, a shortened link, or a "mirror" from a video description. Fake download sites for popular tools are an industry of their own.</span></div></li>
+        <li><div><b>Verifiable publisher</b><span>Signed binaries (Authenticode / osascript), a public repo, or a code audit. Open-source core is best; closed tools need strong public provenance instead.</span></div></li>
+        <li><div><b>No security disabling</b><span>Legitimate scanners never ask you to turn off antivirus, add exclusion folders, or load unsigned kernel drivers. That request is the whole scam.</span></div></li>
+        <li><div><b>Transparent data behavior</b><span>Know what leaves the machine: hashes? screenshots? process lists? Cloud upload may be fine for a scan session — surprise telemetry is not.</span></div></li>
+        <li><div><b>Honest pricing</b><span>Free or plainly priced. "Discounted pins" from resellers, cracked builds, and lifetime keys sold in chat are fraud vectors, not deals.</span></div></li>
+        <li><div><b>Community provenance</b><span>Used by networks whose public SS policies you can actually read. Reputation among staff teams is the closest thing this ecosystem has to certification.</span></div></li>
+        <li><div><b>Stays in its lane</b><span>Tools detect; humans decide. Marketing that promises "instant bans" or undetectability is selling you someone else's bypass — walk away.</span></div></li>
+      </ol>
+    </section>
+
+    <section>
+      <h2 class="section-title">The directory</h2>
+      <p class="section-sub">What's actually out there for Minecraft SS work. No downloads are hosted here — check every link yourself.</p>
+
+      <div class="grid grid-2">
+        <div class="tool-card">
+          <div class="tool-head">
+            <h3>Ocean SS Tool</h3>
+            <span class="verdict v-ok">Widely deployed</span>
+          </div>
+          <p class="tool-src">anticheat.ac · github.com/Ocean-SS-Tool</p>
+          <ul>
+            <li>Free automated screenshare tool used across Minecraft and other games; scans run via session "pins".</li>
+            <li>Published detection logs and docs — you can see what it claims to find and why.</li>
+            <li>Companion Spigot plugin <b>Ocean-Freeze</b> is open source on GitHub, and the org publishes its other code publicly.</li>
+            <li>Core client is closed — trust rests on its public docs and widespread staff adoption, not a source audit.</li>
+            <li><b>Download only from anticheat.ac.</b> Lookalike sites and "free pin" offers are the common scam.</li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <h3>Echo</h3>
+            <span class="verdict v-mid">Established — verify source</span>
+          </div>
+          <p class="tool-src">echo.ac</p>
+          <ul>
+            <li>Long-running detection platform named alongside Ocean in major networks' public SS policies (e.g. PikaNetwork's).</li>
+            <li>Flexible enough that servers build their own scan flows on top of it.</li>
+            <li>Older ecosystem with scattered tutorials — confirm the current official domain through your server's staff chain before installing anything.</li>
+            <li>Remember the rule it lives under: scan results still get double-checked manually.</li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <h3>Microsoft Sysinternals</h3>
+            <span class="verdict v-ok">Gold standard · no-tools core</span>
+          </div>
+          <p class="tool-src">learn.microsoft.com/sysinternals</p>
+          <ul>
+            <li><b>Process Explorer</b> — Task Manager that actually shows command lines and what's injected into javaw.exe.</li>
+            <li><b>Autoruns</b> — every startup, Run key, scheduled task and shell extension on the box, in one list.</li>
+            <li>Signed by Microsoft, free, decades of trust. If you learn exactly two tools, learn these.</li>
+            <li>Perfect backup when a server's scanner is down — the manual walk doesn't need one.</li>
+          </ul>
+        </div>
+
+        <div class="tool-card">
+          <div class="tool-head">
+            <h3>Remote access (AnyDesk / TeamViewer)</h3>
+            <span class="verdict v-mid">Official builds only</span>
+          </div>
+          <p class="tool-src">anydesk.com · teamviewer.com</p>
+          <ul>
+            <li>The standard connection layer: players install from the official site and give <i>you</i> their ID.</li>
+            <li>Identity cuts both ways — the player may verify you before sharing control. That's procedure, not suspicion.</li>
+            <li>Never let anyone install a remote tool from a link <i>you</i> were DM'd. Ever.</li>
+            <li>Record from first contact; the connection ID belongs in the report.</li>
+          </ul>
+        </div>
+      </div>
+
+      <p class="lede" style="margin-top:20px;font-size:14.5px">
+        <b>Also out there:</b> community guides (Red Lotus, screenshare.wiki) — teaching material, not
+        tools. Their most quoted rule is the one this site drills: <i>every tool's detection gets
+        double-checked by hand before it becomes a ban.</i>
+      </p>
+    </section>
+
+    <section>
+      <h2 class="section-title">Red flags — close the tab</h2>
+      <p class="section-sub">Patterns that show up in fake and malware-laced "SS tools".</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>Crossed-out prices on "pins"</h3>
+          <p>Resellers, cracked builds, and lifetime keys sold in DMs. Legit tools don't distribute through resellers.</p>
+        </div>
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>"Disable your antivirus first"</h3>
+          <p>Real scanners don't need exclusions. An AV warning on a fresh download is the tool telling you the truth.</p>
+        </div>
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>Lookalike domains &amp; short links</h3>
+          <p>Hyphens, extra words, bit.ly-style redirects from a YouTube description. Typo-squats on popular tool names are deliberate.</p>
+        </div>
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>"Undetectable / bypass included"</h3>
+          <p>That's the cheat market wearing a moderator costume. Staff tools detect; they don't sell invisibility.</p>
+        </div>
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>No documentable source</h3>
+          <p>Nowhere to read what it does, who makes it, or what it uploads — just a download button and a Discord invite.</p>
+        </div>
+        <div class="card">
+          <span class="tag bad">Scam pattern</span>
+          <h3>Asks for credentials or tokens</h3>
+          <p>No scan needs a password, a session cookie, or a screenshot of a login. Refusing is a player right; asking is a fireable move.</p>
+        </div>
+      </div>
+
+      <div class="callout" style="margin-top:24px">
+        <h4>House rule</h4>
+        <p>
+          This site hosts no binaries and takes no downloads from anyone. Read the rubric, check the
+          source, keep the recording — and follow <i>your</i> server's written SS policy over
+          anything here when they differ.
+        </p>
+      </div>
+
+      <div class="cta-row" style="margin-top:26px">
+        <a class="btn btn-accent btn-lg" href="practice.html">▶ Practice the manual walk</a>
+        <a class="btn btn-lg" href="index.html">Read the process</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="credit">Made by <b>2hit</b> &amp; <b>tome</b></p>
+    <p>SS ACADEMY — training material for Minecraft server staff · no binaries hosted, verify every source</p>
+    <p><a href="index.html">Learn</a> · <a href="practice.html">Practice</a> · © <span data-year></span></p>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>

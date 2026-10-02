@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SS Academy — Learn to screenshare in Minecraft</title>
+  <meta name="description" content="Train as Minecraft server staff: the screenshare process, manual no-tools checks, safe tools like Ocean, and the evidence standard.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2357d17a'/%3E%3Crect%20width='16'%20height='5'%20fill='%232c7a48'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-block"></span>SS&nbsp;ACADEMY<small>// training</small></a>
+    <nav class="nav">
+      <a href="index.html">Learn</a>
+      <a href="practice.html">Practice</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+
+    <div class="hero">
+      <p class="kicker">Minecraft moderation // screenshare training</p>
+      <h1>Catch the cheat.<br><em>Keep the case.</em></h1>
+      <p>
+        Screensharing (SS / PC check) is how server staff catch client-side cheats that the
+        server can never see. This site teaches the full check — the manual, no-tools way,
+        the automated tools that speed it up safely, and the evidence standard that keeps
+        your bans from being overturned.
+      </p>
+      <div class="cta-row">
+        <a class="btn btn-accent btn-lg" href="practice.html">▶ Run a practice case</a>
+        <a class="btn btn-lg" href="tools.html">Which tools are safe?</a>
+      </div>
+    </div>
+
+    <section>
+      <h2 class="section-title">The check, start to finish</h2>
+      <p class="section-sub">Every step is standard practice on serious networks. Skip one and the appeal succeeds.</p>
+      <div class="flow">
+        <div class="flow-step">
+          <div><h4>Freeze &amp; brief</h4>
+          <p>Freeze the player in-game and move to a private channel. State exactly why they were checked — never “you look sus”. They keep chat open so they can't claim coercion.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Set the terms</h4>
+          <p><b>Start recording first.</b> Tell the player their rights: they may record too, a supervisor may sit in, they may refuse — refusal carries a penalty under server rules, not a conviction.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Connect officially</h4>
+          <p>Remote access only through the official tool and the ID your server publishes (AnyDesk / TeamViewer are the norm). The player must be able to verify who you are.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Run the automated scan</h4>
+          <p>Tools like Ocean or Echo scan game files, integrity, and artifacts in seconds. Output is a <b>lead</b>, not a verdict — detections routinely need manual confirmation.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Manual inspection — no tools</h4>
+          <p>Walk the machine yourself: processes and command lines, the .minecraft instance, installed programs and dates, startup entries, prefetch, services. This is where real cases are built — and the skill you practice below.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Verify everything you intend to cite</h4>
+          <p>Open the file. Read the log. Confirm the timestamp. If you can't show it on the recording, it doesn't exist.</p></div>
+        </div>
+        <div class="flow-step">
+          <div><h4>Verdict by evidence, then report</h4>
+          <p>Ban only on concrete, rule-aligned evidence — never on reputation, vibes, or a log line you didn't verify. Write the report from the recording.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Without tools: the manual walk</h2>
+      <p class="section-sub">No scanner, no problem. These checks run on a stock Windows machine and cover most of what tools find.</p>
+      <ul class="checklist">
+        <li><b>1 · Processes &amp; command lines</b><span>Open Task Manager → Details. Read the command line of anything you don't recognize. Is something attached to <code>javaw.exe</code>? Injection leaves a process with a target PID.</span></li>
+        <li><b>2 · The game instance</b><span><code>%appdata%\.minecraft</code> → versions, mods, logs. Unknown version folders with their own jars, mods that don't match the server's allowed list, tweaker args in <code>logs\latest.log</code>.</span></li>
+        <li><b>3 · Installed programs &amp; dates</b><span>Settings → Apps, or Programs & Features. Install dates are sticky evidence: a program installed the day before the flagged clip tells a story.</span></li>
+        <li><b>4 · Startup / Run entries</b><span><code>shell:startup</code> plus the Run keys. Unknown persistence — especially rundll32 pointing at a random file in AppData — rarely belongs to a legit player.</span></li>
+        <li><b>5 · Prefetch (execution history)</b><span><code>C:\Windows\Prefetch</code> proves an executable <i>ran</i>, with dates — even after the file is deleted. Requires SysMain to be enabled, which leads to…</span></li>
+        <li><b>6 · Services — the forensic trail</b><span>Check EventLog, SysMain, DcomLaunch, DPS, Task Scheduler, DusmSvc. Disabled = deleted evidence = attempted bypass under most servers' rules, and itself a punishable finding.</span></li>
+        <li><b>7 · Reconcile with the scan</b><span>If your tool flagged something, confirm it manually. If it flagged nothing, remember: external overlays live outside .minecraft and a clean scan is not a clean machine.</span></li>
+      </ul>
+
+      <div class="callout" style="margin-top:22px">
+        <h4>⛔ Stop lines — player rights</h4>
+        <p style="margin-bottom:12px">
+          Standard SS policy treats these as invasive searches the player may refuse. Cross one and
+          the whole session can be voided — evidence found beside it included:
+        </p>
+        <ul class="checklist stoplist">
+          <li><b>Browser / search history</b><span>Not case material. Never open it.</span></li>
+          <li><b>Personal files, photos, documents</b><span>Stay in game, tool, and system-artifact territory.</span></li>
+          <li><b>Passwords, tokens, logged-in sessions</b><span>Reading or capturing credentials is disqualifying.</span></li>
+          <li><b>Discord / social dumps and DMs</b><span>Process dumps of social apps are off-limits under the usual policy.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">The evidence standard</h2>
+      <p class="section-sub">Good checks die bad appeals. Three rules carry most of the weight.</p>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="tag ok">Rule 01</span>
+          <h3>Detection ≠ proof</h3>
+          <p>Automated hits are leads. A hit becomes evidence when <i>you</i> open the artifact on the recording and it says what the tool claimed.</p>
+        </div>
+        <div class="card">
+          <span class="tag ok">Rule 02</span>
+          <h3>Record everything</h3>
+          <p>The full session, from contact to verdict. No recording means no case: procedural mistakes and missing footage are appeal wins by default.</p>
+        </div>
+        <div class="card">
+          <span class="tag ok">Rule 03</span>
+          <h3>Presumed innocent</h3>
+          <p>Unclear or controversial evidence goes to the player. A wrong ban costs the server more than a missed one — including your position on staff.</p>
+        </div>
+      </div>
+      <div class="cta-row" style="margin-top:26px">
+        <a class="btn btn-accent btn-lg" href="practice.html">▶ Prove it: run case 01</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p class="credit">Made by <b>2hit</b> &amp; <b>tome</b></p>
+    <p>SS ACADEMY — training material for Minecraft server staff · built for fair checks, not witch hunts</p>
+    <p><a href="practice.html">Practice</a> · <a href="tools.html">Tools</a> · © <span data-year></span></p>
+  </footer>
+
+  <script src="assets/site.js"></script>
+</body>
+</html>

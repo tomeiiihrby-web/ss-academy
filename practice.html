@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Practice — SS Academy</title>
+  <meta name="description" content="Play a Minecraft screenshare simulator: pick a mode (with SS tools or without), run the protocol tests, handle the suspect's talk, cite evidence, file a verdict.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%2357d17a'/%3E%3Crect width='16' height='5' fill='%232c7a48'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+
+  <header class="topbar">
+    <a class="brand" href="index.html"><span class="brand-block"></span>SS&nbsp;ACADEMY<small>// training</small></a>
+    <nav class="nav">
+      <a href="index.html">Learn</a>
+      <a href="practice.html">Practice</a>
+      <a href="tools.html">Tools</a>
+    </nav>
+  </header>
+
+  <main class="wrap sim-wrap">
+
+    <!-- ===== mode + case select ===== -->
+    <div id="case-select">
+      <p class="kicker">Sandbox // simulated machines</p>
+      <h1 class="section-title" style="border:0;padding:0">Pick how you run it</h1>
+      <p class="lede">
+        Two ways to run a screenshare — with the automated tool, or entirely by hand.
+        Choose your loadout, then pick a case: you're the checker. You'll run the protocol
+        tests, keep the suspect talking on comms, cite only what you verified, and file a
+        verdict that gets scored on evidence, procedure <b>and</b> conduct.
+      </p>
+
+      <div class="mode-grid" id="mode-grid"></div>
+
+      <div class="subhead">
+        <h2>Choose a case</h2>
+        <span class="mode-badge" id="mode-badge">TOOL-ASSISTED</span>
+      </div>
+      <div class="case-grid" id="case-grid"></div>
+
+      <p class="lede" style="margin-top:26px;font-size:14px">
+        Tip: an automated scan is a lead, not a verdict. Everything you cite, you open yourself first —
+        and everything you say is on the recording too.
+      </p>
+    </div>
+
+    <!-- ===== briefing overlay ===== -->
+    <div class="overlay" id="briefing" hidden>
+      <div class="sheet">
+        <span class="sheet-kicker">CASE BRIEF // PRIVATE CHANNEL</span>
+        <h2>Field report</h2>
+        <div class="report" id="brief-report"></div>
+
+        <div class="runsheet">
+          <h5>Run sheet <span id="brief-mode">WITH SS TOOLS</span></h5>
+          <ol id="brief-steps"></ol>
+        </div>
+
+        <p class="rule">REC ON · player rights read out · evidence standard: beyond reasonable doubt · the suspect talks throughout — watch the comms channel</p>
+        <div class="sheet-actions">
+          <button class="btn btn-accent" id="btn-begin">▶ Begin check</button>
+          <button class="btn btn-ghost" id="brief-cancel">Back to case list</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== case view ===== -->
+    <div id="case-view" hidden>
+      <div class="case-head">
+        <div>
+          <h2 id="case-title">CASE</h2>
+          <span class="case-sub">SESSION RECORDED · EVIDENCE STANDARD: BEYOND REASONABLE DOUBT</span>
+        </div>
+        <div class="case-head-right">
+          <span class="head-chip mode-chip" id="mode-chip">TOOL-ASSISTED</span>
+          <span class="head-chip rec-chip" id="rec-chip">○ REC OFF</span>
+          <button class="btn btn-ghost" id="btn-abandon">‹ Case list</button>
+        </div>
+      </div>
+
+      <!-- protocol tests -->
+      <section class="tests">
+        <div class="tests-top">
+          <span class="tests-title">Tests <small>// run the session like you would for real</small></span>
+          <span class="tests-count" id="tests-count">0/8</span>
+        </div>
+        <div class="test-chips" id="test-chips"></div>
+        <div class="test-log" id="test-log"><span class="muted">No tests run yet — start with the recording.</span></div>
+      </section>
+
+      <div class="sim-grid">
+        <div class="sim-main">
+          <nav class="panel-nav" id="panel-nav"></nav>
+          <div class="panel-body" id="panel-body"></div>
+        </div>
+
+        <div class="side">
+          <!-- suspect comms -->
+          <section class="talk">
+            <div class="talk-head">
+              <span class="talk-name" id="talk-name">SUSPECT</span>
+              <span class="talk-state" id="talk-state">ON CALL</span>
+            </div>
+            <div class="talk-feed" id="talk-feed"></div>
+            <div class="talk-options" id="talk-options"></div>
+          </section>
+
+          <aside class="case-file">
+            <h3>Case file</h3>
+            <p class="hint">Items you cite go in the report. Remove anything you wouldn't defend at appeal.</p>
+            <ul id="flagged-list"></ul>
+            <div id="rights-badge" hidden></div>
+            <button class="btn btn-accent" id="btn-verdict" style="width:100%">File verdict</button>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== item viewer modal ===== -->
+    <div class="overlay" id="modal" hidden>
+      <div class="sheet modal-box">
+        <div class="modal-head">
+          <div>
+            <h3 id="modal-title"></h3>
+            <div class="modal-sub" id="modal-sub"></div>
+            <div class="modal-meta" id="modal-meta"></div>
+          </div>
+          <button class="close-x" id="btn-close" title="Close">✕</button>
+        </div>
+
+        <div class="rights-box" id="rights-warn" hidden>
+          <h4>⚠ Player rights warning</h4>
+          <p>This falls under the player's right to refuse invasive searches — browser/search history, personal files, credentials, social dumps.</p>
+          <p class="small">Proceeding stamps a <b>procedural breach</b> on this session. On appeal, evidence collected past the line can take the whole ban down with it. The suspect is saying something about it right now — check comms.</p>
+          <div class="sheet-actions">
+            <button class="btn btn-ghost" id="btn-rights-back">Close — I don't need it</button>
+            <button class="btn btn-danger" id="btn-rights-proceed">Proceed anyway</button>
+          </div>
+        </div>
+
+        <div id="modal-detail"></div>
+
+        <div class="modal-actions" id="modal-actions">
+          <span id="flag-area" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+            <button class="btn btn-accent" id="btn-flag">⚑ Cite as evidence</button>
+            <span class="breach-tag" id="breach-tag" hidden>PROCEDURAL BREACH ON RECORD — cannot cite</span>
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== verdict modal ===== -->
+    <div class="overlay" id="verdict-modal" hidden>
+      <div class="sheet">
+        <span class="sheet-kicker">REPORT STATION</span>
+        <h2>File your verdict</h2>
+
+        <label class="verdict-opt">
+          <input type="radio" name="verdict" value="ban">
+          <span><b>BAN — evidence is concrete</b><span>Artifacts you verified directly tie this player to cheats.</span></span>
+        </label>
+        <label class="verdict-opt">
+          <input type="radio" name="verdict" value="insufficient">
+          <span><b>INSUFFICIENT — cannot stand at appeal</b><span>Something is off, but nothing verified meets the standard.</span></span>
+        </label>
+        <label class="verdict-opt">
+          <input type="radio" name="verdict" value="clean">
+          <span><b>CLEAN — nothing here</b><span>Checks came back clear. The player walks.</span></span>
+        </label>
+
+        <div id="cites-wrap">
+          <h5>Items cited in this report</h5>
+          <ul id="verdict-cites"></ul>
+        </div>
+        <p id="verdict-hint"></p>
+
+        <div class="sheet-actions">
+          <button class="btn btn-accent" id="btn-submit-verdict">Next: field test ›</button>
+          <button class="btn btn-ghost" id="verdict-cancel">Back to check</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== field test modal ===== -->
+    <div class="overlay" id="quiz-modal" hidden>
+      <div class="sheet">
+        <span class="sheet-kicker">FIELD TEST // 3 QUESTIONS</span>
+        <h2>Before you file</h2>
+        <p class="muted" style="margin-top:6px">Procedure, player-talk, evidence standard. Answers are scored — pick what you'd actually say and do.</p>
+        <div id="quiz-qs"></div>
+        <p id="quiz-hint"></p>
+        <div class="sheet-actions">
+          <button class="btn btn-accent" id="btn-submit-quiz">Submit answers &amp; file verdict</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== appeal modal ===== -->
+    <div class="overlay" id="appeal-modal" hidden>
+      <div class="sheet">
+        <span class="sheet-kicker">APPEAL // THE PANEL REVIEWS YOUR FILE</span>
+        <h2>Defend the case</h2>
+        <p class="muted" style="margin-top:6px">The player disputes it. Three challenges to your report — any citation the panel isn't convinced by gets <b>struck</b>, and a ban left standing on nothing is overturned.</p>
+        <div id="appeal-qs"></div>
+        <p id="appeal-hint"></p>
+        <div class="sheet-actions">
+          <button class="btn btn-accent" id="btn-submit-appeal">Hear the verdict</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== results overlay ===== -->
+    <div class="overlay" id="results" hidden>
+      <div class="sheet results-sheet">
+        <span class="sheet-kicker">SESSION REVIEW</span>
+        <div class="results-top">
+          <h2 id="results-grade">—</h2>
+          <span id="results-score">0/100</span>
+        </div>
+        <div id="results-verdict"></div>
+
+        <ul id="breakdown"></ul>
+        <div class="results-note" id="results-note"></div>
+
+        <!-- after-action: the part of the machine your report never touched -->
+        <div class="review" id="review" hidden>
+          <h5>After-action // what your report doesn't show</h5>
+          <div class="rev-block" id="review-missed-wrap" hidden>
+            <h6 class="rev-miss-h">MISSED — evidence your report never cited</h6>
+            <div id="review-missed"></div>
+          </div>
+          <div class="rev-block" id="review-held-wrap" hidden>
+            <h6 class="rev-held-h">HELD THE LINE — temptations you didn't act on</h6>
+            <div id="review-held"></div>
+          </div>
+        </div>
+
+        <div class="quiz-review" id="quiz-review" hidden></div>
+
+        <div class="debrief" id="debrief"></div>
+
+        <div class="sheet-actions">
+          <button class="btn btn-accent" id="btn-replay">↻ Replay case</button>
+          <button class="btn" id="btn-cases">Case list</button>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <p class="credit">Made by <b>2hit</b> &amp; <b>tome</b></p>
+    <p>SS ACADEMY — sandboxed practice machines · nothing here touches a real PC</p>
+    <p><a href="index.html">Learn</a> · <a href="tools.html">Tools</a> · © <span data-year></span></p>
+  </footer>
+
+  <script src="assets/scenarios.js"></script>
+  <script src="assets/session.js"></script>
+  <script src="assets/sim.js"></script>
+</body>
+</html>
