@@ -14,11 +14,13 @@
     { key: "services", label: "SERVICES", sub: "Windows services" },
     { key: "installed", label: "INSTALLED", sub: "Programs & features" },
     { key: "startup", label: "STARTUP", sub: "Run entries" },
+    { key: "ls", label: "LAUNCHER STARTUP", sub: "Launcher logs + mod counts" },
+    { key: "mods", label: "MODULE SWEEP", sub: "Injection + module counts" },
     { key: "scan", label: "SCAN TOOL", sub: "Automated detection" }
   ];
 
   /* test key -> scenario array name (for derived results) */
-  var TEST_PROP = { proc: "processes", files: "files", serv: "services", star: "startup", inst: "installed" };
+  var TEST_PROP = { proc: "processes", files: "files", serv: "services", star: "startup", inst: "installed", ls: "launcherStartup", mods: "processes" };
 
   var state = {
     mode: "tools",
@@ -580,7 +582,38 @@
 
     var list = document.createElement("div");
     list.className = "rows";
-    (sc[state.panel] || []).forEach(function (it) { list.appendChild(rowEl(it)); });
+    if (state.panel === "ls") {
+      var ls = sc.launcherStartup || [];
+      var block = document.createElement("div");
+      block.className = "launcher-startup";
+      ls.forEach(function (it) {
+        var title = document.createElement("h4");
+        title.className = "launcher-startup-title";
+        title.textContent = it.title;
+        block.appendChild(title);
+        var meta = document.createElement("p");
+        meta.className = "launcher-startup-meta";
+        meta.textContent = it.meta || "";
+        block.appendChild(meta);
+        var log = document.createElement("p");
+        log.className = "launcher-startup-log";
+        log.textContent = it.detail || "";
+        block.appendChild(log);
+      });
+      list.appendChild(block);
+    } else if (state.panel === "mods") {
+      var mods = sc.mods || [];
+      if (mods.length === 0) {
+        var hint = document.createElement("p");
+        hint.className = "muted";
+        hint.textContent = "No mod folders assigned to this case.";
+        list.appendChild(hint);
+      } else {
+        mods.forEach(function (it) { list.appendChild(rowEl(it)); });
+      }
+    } else {
+      (sc[state.panel] || []).forEach(function (it) { list.appendChild(rowEl(it)); });
+    }
     body.appendChild(list);
   }
 
@@ -591,6 +624,8 @@
       case "services": return "Disabled services = deleted forensic trail = attempted bypass.";
       case "installed": return "Programs & features, with install dates.";
       case "startup": return "What runs at login — persistence lives here.";
+    case "ls": return "Launcher logs and the mod count for each client.";
+    case "mods": return "What the game process loaded — with injected-module counts.";
       case "scan": return "Automated output is a lead, never a verdict.";
       default: return "";
     }

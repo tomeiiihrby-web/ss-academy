@@ -1,6 +1,7 @@
 /* SS Academy — scenario data for the simulator.
  * Content rule: every detail is RAW OUTPUT ONLY. No narration, no verdict words
  * ("clean", "nothing here", "healthy", "suspicious"). The reader judges.
+ *
  * kind semantics (drives scoring, never shown to the player):
  *   evidence — required to cite for a top score (strong proof / exculpatory)
  *   support  — corroborating, worth small credit
@@ -11,7 +12,9 @@
  * citing its manual verification costs points (a detection alone is not a case).
  * Explanations live in the debrief, after the verdict — never in the evidence.
  */
+
 window.SCENARIOS = [
+
   {
     id: "blatant",
     num: "01",
@@ -32,6 +35,7 @@ window.SCENARIOS = [
       "Clip in #reports/2026-09-30-blockbandit.mp4: hits landing from5+ blocks, instant90° snaps.\n" +
       "Player replied in chat: “check me then.”\n\n" +
       "He is frozen in-game. You start the screenshare. Session must be recorded.",
+
     correctVerdict: ["ban"],
     verdictNote: "The artifacts here are concrete: an injected process and a cheat jar inside the game instance.",
     files: [
@@ -79,8 +83,7 @@ jar tf ReachPlus-1.8.9.jar:
 
 mcmod.info:
   { "modid": "reachplus", "name": "ReachPlus", "version": "1.8.9",
-    "description": "extends client-side interaction range",
-    "mcversion": "1.8.9" }
+    "description": "extends client-side interaction range", "mcversion": "1.8.9" }
 
 class strings:  setReachDistance, reachBuffer, attackRangeMultiplier`
       },
@@ -178,184 +181,61 @@ C:\\> sqlite3 History.db "select count(*) from urls where url like '%cheat%';"
         kind: "neutral",
         detail:
 `C:\\Users\\Steve\\Downloads\\
-
 2026-08-02 11:24       6,501,152  OptiFine_1.8.9_HD_U_I7.zip
 2026-09-12 18:33         104,412  java-installer8u411.exe
 2026-09-14 18:59          98,304  ReachPlus-1.8.9.jar      ← (moved to mods\\ later)`
       }
     ],
-    processes: [
+    launcherStartup: [
       {
-        id: "p_injector",
-        title: "injector.exe",
-        meta: "PID 9840 · Unknown publisher",
-        kind: "evidence",
-        detail:
-`C:\\> wmic process where processid=9840 get commandline,executablepath,parentprocessid
-
-CommandLine    : injector.exe --target7412 --payload C:\\Users\\Steve\\AppData\\Local\\Temp\\load.dll
-ExecutablePath : C:\\Users\\Steve\\AppData\\Local\\Temp\\injector.exe
-ParentPID      :7004 (powershell.exe)
-HandleCount    :312   ThreadCount :6   WorkingSet :24,176 KB
-
-C:\\> sigcheck64 -accepteula injector.exe
-Publisher: (no signature)
-Version :1.0.0.3
-Path    : C:\\Users\\Steve\\AppData\\Local\\Temp\\injector.exe`
-      },
-      {
-        id: "p_javaw",
-        title: "javaw.exe",
-        meta: "PID 7412 · Oracle",
+        id: "ls_justice",
+        title: "Justice Client · v2.4.1",
+        meta: "mods:24 · launched2026-09-30 20:53:58",
         kind: "neutral",
         detail:
-`CommandLine:
-  javaw.exe -Xmx2G -XX:HeapDumpPath=Minecraft\\java_crash_pid.dmp -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+`C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe — startup log, 2026-09-30 20:53:58
 
-ExecutablePath : C:\\Program Files\\Java\\jre1.8.0_411\\bin\\javaw.exe
-Signer         : Oracle Corporation (chain valid)
-Started        :2026-09-30 20:54:01`
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9-vanilla”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Checking for updates…
+[00:00:05] Verifying checksums …
+[00:00:06] 24 mods found in mods\\ folder
+[00:00:07] 2026-09-30 20:53:58 0.234s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:08] Game ready.`
       },
       {
-        id: "p_discord",
-        title: "Discord.exe",
-        meta: "PID 3312 · Discord Inc.",
+        id: "ls_lunar",
+        title: "Lunar Client · v4.6.2",
+        meta: "mods:58 · launched2026-09-30 20:54:02",
         kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Users\\Steve\\AppData\\Local\\Discord\\app-1.0.9186\\Discord.exe" --branch=stable
+`C:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe — startup log, 2026-09-30 20:54:02
 
-Signer : Discord Inc. (chain valid)
-Ports   : TCP51414, UDP54216`
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 58 mods found in mods\\ folder
+[00:00:06] 2026-09-30 20:54:02 0.201s  java -Xmx2G -cp lunar-launcher.jar LunarClientTweaker --version 1.8.9
+[00:00:07] Game ready.`
       },
       {
-        id: "p_explorer",
-        title: "explorer.exe",
-        meta: "PID 2804 · Microsoft",
+        id: "ls_feather",
+        title: "Feather Client · v5.6.11",
+        meta: "mods:21 · launched2026-09-30 20:54:01",
         kind: "neutral",
         detail:
-`CommandLine:
-  C:\\Windows\\explorer.exe
+`C:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe — startup log, 2026-09-30 20:54:01
 
-Signer : Microsoft Windows (chain valid)
-Started:2026-09-30 18:02:11`
-      },
-      {
-        id: "p_onedrive",
-        title: "OneDrive.exe",
-        meta: "PID 4120 · Microsoft",
-        kind: "neutral",
-        detail:
-`CommandLine:
-  "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe" /background
-
-Signer : Microsoft Corporation (chain valid)`
-      },
-      {
-        id: "p_msmpeng",
-        title: "MsMpEng.exe",
-        meta: "PID 1836 · Microsoft",
-        kind: "neutral",
-        detail:
-`CommandLine:
-  "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.24090.11-0\\MsMpEng.exe"
-
-Signer : Microsoft Windows (chain valid)
-CPU     :4.1%   WorkingSet :148 MB`
-      },
-      {
-        id: "p_svchost",
-        title: "svchost.exe",
-        meta: "PID 1104 · Microsoft",
-        kind: "neutral",
-        detail:
-`CommandLine:
-  C:\\Windows\\System32\\svchost.exe -k netsvcs -p -s Schedule
-
-Signer : Microsoft Windows (chain valid)`
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 21 mods found in mods\\ folder
+[00:00:06] 2026-09-30 20:54:01 0.251s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:07] Game ready.`
       }
-    ],
-    services: [
-      { id: "s_eventlog", title: "EventLog", meta: "Running · Automatic", kind: "support",
-        detail:
-`C:\\> sc query EventLog
-
-SERVICE_NAME: EventLog
-        STATE              :4 RUNNING
-        WIN32_EXIT_CODE    :0
-        START_TYPE         :2 AUTO_START
-
-Get-Service EventLog → Status: Running` },
-      { id: "s_sysmain", title: "SysMain", meta: "Running · Automatic", kind: "support",
-        detail:
-`C:\\> sc query SysMain
-
-SERVICE_NAME: SysMain
-        STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START
-
-C:\\> dir C:\\Windows\\Prefetch | find /c ".pf"
-18` },
-      { id: "s_dcom", title: "DcomLaunch", meta: "Running · Automatic", kind: "neutral",
-        detail:
-`C:\\> sc query DcomLaunch
-
-SERVICE_NAME: DcomLaunch
-        STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
-      { id: "s_dps", title: "DPS", meta: "Running · Automatic", kind: "neutral",
-        detail:
-`C:\\> sc query Dps
-
-SERVICE_NAME: Dps
-        STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
-      { id: "s_sched", title: "Task Scheduler", meta: "Running · Automatic", kind: "neutral",
-        detail:
-`C:\\> sc query Schedule
-
-SERVICE_NAME: Schedule
-        STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START
-
-C:\\> schtasks /query | find /c "2026"
-41` },
-      { id: "s_dusm", title: "DusmSvc (Data Usage)", meta: "Running · Automatic", kind: "neutral",
-        detail:
-`C:\\> sc query DusmSvc
-
-SERVICE_NAME: DusmSvc
-        STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` }
-    ],
-    installed: [
-      { id: "i_ce", title: "Cheat Engine7.5", meta: "installed2026-06-11 · publisher: cheatengine.org", kind: "trap",
-        detail:
-`C:\\> reg query "HKLM\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s /f "Cheat Engine"
-
-DisplayName      : Cheat Engine7.5
-Publisher        : cheatengine.org
-InstallDate      :20260611
-EstimatedSize    :63,240 KB
-UninstallString  : "C:\\Program Files\\Cheat Engine\\unins000.exe"
-DisplayIcon      : C:\\Program Files\\Cheat Engine\\cheatengine-x86_64.exe
-No signature chain present for subject 'cheatengine.org'` },
-      { id: "i_java", title: "Java8 Update411", meta: "installed2025-11-02 · Oracle", kind: "neutral",
-        detail:
-`DisplayName : Java8 Update411
-Publisher   : Oracle Corporation
-InstallDate :20251102
-Signed by   : Oracle America, Inc. (chain valid)` },
-      { id: "i_discord", title: "Discord", meta: "installed2024-03-18 · Discord Inc.", kind: "neutral",
-        detail:
-`DisplayName : Discord
-Publisher   : Discord Inc.
-InstallDate :20240318` },
-      { id: "i_steam", title: "Steam", meta: "installed2023-01-09 · Valve", kind: "neutral",
-        detail:
-`DisplayName : Steam
-Publisher   : Valve Corporation
-InstallDate :20230109` }
     ],
     startup: [
       { id: "u_sec", title: "SecurityHealthSystray", meta: "HKLM\\...\\Run · Microsoft", kind: "neutral",
@@ -375,7 +255,1114 @@ Signer: Microsoft Corporation (chain valid)` },
 `HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
   "Steam"="C:\\Program Files (x86)\\Steam\\steam.exe -silent"
 
-Signer: Valve Corporation (chain valid)` }
+Signer: Valve Corporation (chain valid)` },
+      { id: "u_discord", title: "Discord", meta: "HKCU\\...\\Run · Discord Inc.", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "Discord"="C:\\Users\\Steve\\AppData\\Local\\Discord\\Update.exe --processStart Discord.exe"
+
+Signer: Discord Inc. (chain valid)` },
+      { id: "u_awd", title: "AutoWarDll", meta: "HKCU\\...\\Run · unknown publisher", kind: "trap",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "AutoWarDll"="C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awdstart.exe"
+
+C:\\> dir C:\\Users\\Steve\\AppData\\Roaming\\AWD
+  2026-09-12 18:30        98,304  awdstart.exe
+  2026-09-12 18:30          2,048  awdstart.exe.manifest
+  2026-09-12 18:30            312  awdstart.exe.config
+
+C:\\> sigcheck64 C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awdstart.exe
+Publisher : (no signature)
+Type      : 64-bit PE, console` },
+      { id: "u_dpf", title: "DesktopInfoPostFork", meta: "HKCU\\...\\Run · unknown publisher", kind: "trap",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "DesktopInfoPostFork"="C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe /hidden"
+
+C:\\> ps
+  Handles  NPM(K)  WorkingSet  PMSize  SessionName  SID  GameName
+  1,204     82      96,124 K   54,036 K  0          0    C:\\Windows\\System32\\cmd.exe /c rundll32.exe C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.dll,RunDll
+
+C:\\> sigcheck64 C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe
+Publisher : (no signature)` },
+      { id: "u_vbox", title: "VirtualBoxService", meta: "HKLM\\...\\Services · Oracle", kind: "neutral",
+        detail:
+`HKLM\\SYSTEM\\CurrentControlSet\\Services\\vboxService
+  Type        : 2 (SERVICE_KERNEL_DRIVER)
+  StartType   : 3 (SYSTEM_START)
+  DisplayName : VirtualBox Service
+
+C:\\> sc query vboxService
+  SERVICE_NAME: vboxService
+  STATE: 4 RUNNING
+  DISPLAY_NAME: VirtualBox Service (Oracle Corporation, 2012)` },
+      { id: "u_wofer", title: "WorldEditForge", meta: "HKCU\\...\\Run · EngineHub", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "WorldEditForge"="C:\\Program Files (x86)\\WorldEditForge\\we.exe"
+
+Signer: EngineHub Inc. (chain valid)`
+      }
+    ],
+    mods: [
+      { id: "mb_begger", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
+2026-05-04 12:22        184,320  better-weather-1.8.jar
+2026-05-04 12:22        307,200  auto-craft-1.8.jar
+2026-05-04 12:22        258,048  fast-login-1.8.jar
+2026-05-04 12:22        196,608  health-bar-1.8.jar
+2026-05-04 12:22        229,376  rain-boost-1.8.jar
+2026-05-04 12:22        235,520  auto-enchant-1.8.jar
+2026-05-04 12:22        311,296  anti-kill-1.8.jar
+2026-05-04 12:22        225,280  fast-break-1.8.jar
+2026-05-04 12:22        245,760  auto-sneak-1.8.jar
+2026-05-04 12:22        314,112  long-punch-1.8.jar
+2026-05-04 12:22        212,992  aim-compensate-1.8.jar
+2026-05-04 12:22        240,896  x-ray-1.8.jar
+2026-05-04 12:22        327,680  hog-1.8.jar
+2026-05-04 12:22        294,912  bed-rocket-1.8.jar
+2026-05-04 12:22        286,720  auto-armor-1.8.jar
+2026-05-04 12:22        262,144  fast-drops-1.8.jar
+2026-05-04 12:22        303,104  knockback-1.8.jar
+2026-05-04 12:22        253,952  fast-water-1.8.jar
+2026-05-04 12:22        322,560  auto-potion-1.8.jar
+2026-05-04 12:22        270,336  fast-mine-1.8.jar
+2026-05-04 12:22        282,240  auto-ping-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+22`
+      },
+      { id: "mb_hack", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
+2026-09-14 19:01        65,536  unknownoum-1.8.jar
+2026-09-14 19:01        58,368  fast-move-1.8.jar
+2026-09-14 19:01        61,440  xray-plus-1.8.jar
+2026-09-14 19:01        55,296  aim-lock-1.8.jar
+2026-09-14 19:01        62,464  auto-click-1.8.jar
+2026-09-14 19:01        52,224  kill-bot-1.8.jar
+2026-09-14 19:01        63,488  wall-see-1.8.jar
+2026-09-14 19:01        57,344  bow-speed-1.8.jar
+2026-09-14 19:01        54,272  smart-breach-1.8.jar
+2026-09-14 19:01        59,392  hitbox-1.8.jar
+2026-09-14 19:01        60,416  no-errors-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+12`
+      }
+    ],
+    processes: [
+      { id: "p_javaw", title: "javaw.exe", meta: "PID 7412 · Oracle", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 7412" /v
+
+Image Name                     PID Session  SID  Session# Mem Usage  CPU Time  User Name
+javaw.exe                       7412  0       0      1 2,412,096 K 8.45 %     0:31.22  Steven
+
+C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 7412" /m
+
+javaw.exe                       7412  Modules
+  MSCOREE.4.DLL
+  VKMSPLUGIN.DLL
+  java_crash.dll
+  jvm.dll
+  netman.dll
+
+C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 7412" /v /fo csv
+javaw.exe,7412,,,,2,2,412,032 K,8,031,234 K,0,31.22,Steven`
+
+      },
+      { id: "p_injector", title: "injector.exe", meta: "PID 9840 · Unknown publisher · seq 29172? · hwid #staygu", kind: "evidence",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 9840" /v
+
+Image Name                     PID Session  SID  Session# Mem Usage  CPU Time  User Name
+injector.exe                    9840  0       0      1 24,176 K    1.20 %     0:01.04  Steven
+
+C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 9840" /m
+
+injector.exe                    9840  Modules
+  KERNEL32.DLL
+  ntdll.dll
+  ADVAPI32.dll
+  PSAPI.DLL
+  VERSION.dll
+  ws2_32.dll
+  ws2tcpip.dll
+  MSVCRT.dll
+
+C:\\Users\\Steve\\AppData\\Local\\Temp> wmic process where processid=9840 get commandline,executablepath,parentprocessid
+  CommandLine    : injector.exe --target7412 --payload C:\\Users\\Steve\\AppData\\Local\\Temp\\load.dll
+  ExecutablePath : C:\\Users\\Steve\\AppData\\Local\\Temp\\injector.exe
+  ParentPID      :7004 (powershell.exe)
+
+C:\\> sigcheck64 -accepteula injector.exe
+  Publisher: (no signature)
+  Version :1.0.0.3
+  Path    : C:\\Users\\Steve\\AppData\\Local\\Temp\\injector.exe`
+      },
+      { id: "p_powershell", title: "powershell.exe", meta: "PID 7004 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 7004" /v
+
+powershell.exe                  7004  0       0      1 68,128 K    0.45 %     0:02.11  Steven
+
+C:\\> tasklist /fi "pid eq 7004" /m
+powershell.exe                  7004  Modules
+  KERNEL32.DLL
+  ntdll.dll
+  ADVAPI32.dll
+  PSAPI.DLL
+  VERSION.dll
+  ws2_32.dll
+  ws2tcpip.dll
+  MSVCRT.dll
+  IEFRAME.dll
+  MSASN1.dll
+  WPKIUtil.dll
+  WINHTTP.dll
+  CRYPT32.dll
+  SECUR32.dll
+  GDI32.dll
+  USER32.dll
+  kernel.appcore.dll
+  SHCORE.dll
+  SHELL32.dll
+  COMCTL32.dll
+  SPROGIDL.dll
+  OLEAUT32.dll
+  ONLRESOLV.dll
+  URLLOWLIB.dll
+  OLEAUT32.dll
+  BROWSCAN.dll
+  ATL.DLL
+  DXGI.dll
+  DINPUT8.dll
+  DXGI.DLL
+  KERNELBASE.dll
+  ucrtbase.dll
+
+C:\\> wmic process where processid=7004 get commandline
+  CommandLine : powershell.exe -ExecutionPolicy Bypass -File C:\\Users\\Steve\\AppData\\Local\\Temp\\runme.ps1`
+      },
+      { id: "p_runme", title: "runme.ps1", meta: "PID unknown · temp script", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> type runme.ps1
+  param([string]$target, [string]$payload)
+  Start-Process -FilePath "javaw.exe" -ArgumentList "-Xmx2G","-cp",".minecraft\\versions\\1.8.9\\1.8.9.jar","net.minecraft.client.main.Main" -RedirectStandardOutput "C:\\Users\\Steve\\AppData\\Local\\Temp\\inject.log"
+  (Get-Content "C:\\Users\\Steve\\AppData\\Local\\Temp\\load.dll") -replace "old","new" | Set-Content "C:\\Users\\Steve\\AppData\\Local\\Temp\\load.dll"`
+      },
+      { id: "p_discord", title: "Discord.exe", meta: "PID 3312 · Discord Inc.", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 3312" /v
+
+Discord.exe                     3312  0       0      1 148,224 K  2.17 %     0:30.28  Steven
+
+C:\\> tasklist /fi "pid eq 3312" /m
+  Discord.exe  3312  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL
+    MSCTF.DLL`
+      },
+      { id: "p_explorer", title: "explorer.exe", meta: "PID 2804 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 2804" /v
+
+explorer.exe                    2804  0       0      1 42,368 K    0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 2804" /m
+  explorer.exe  2804  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    USERENV.dll
+    UNICOWS.DLL
+    SHCORE.dll
+    API-MS-Win-Core-LibraryLoader-L1-1-0.DLL
+    api-ms-win-core-memory-L1-1-0.DLL
+    api-ms-win-core-sysinfo-l1-1-0.DLL
+    api-ms-win-core-heap-l1-1-0.DLL
+    ntoskrnl.exe`
+      },
+      { id: "p_msmpeng", title: "MsMpEng.exe", meta: "PID 1836 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 1836" /v
+
+MsMpEng.exe                   1836  0       0      1 148 MB      2.45 %     0:15.10  SYSTEM
+C:\\> tasklist /fi "pid eq 1836" /m
+  MsMpEng.exe  1836  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    CRYPT32.dll
+    SECUR32.dll
+    BCrypt.dll
+    DIsPapi.dll
+    IEFRAME.dll
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll`
+      },
+      { id: "p_svchost", title: "svchost.exe", meta: "PID 1104 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 1104" /v
+
+svchost.exe                   1104  0       0      1 48,256 K    0.25 %     0:08.41  SYSTEM
+C:\\> tasklist /fi "pid eq 1104" /m
+  svchost.exe  1104  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    CRYPT32.dll
+    SECUR32.dll
+    WS2_32.dll
+    WINMM.dll
+    USAbdioctl.dll
+    WLDAP32.dll
+    USERENV.dll
+    WINMM.dll
+    SHCORE.dll
+    NLSFUNC.dll
+    SETUPAPI.dll
+    SRCAP.dll`
+      },
+      { id: "p_dllhost", title: "dllhost.exe", meta: "PID 3028 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 3028" /v
+
+dllhost.exe                     3028  0       0      1 12,288 K    0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 3028" /m
+  dllhost.exe  3028  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    CLSNT32.DLL
+    DCC_WEB.DLL
+    NETUTILS.DLL
+    SHDOCVW.DLL
+    MSCTF.DLL
+    USERENV.dll`
+      },
+      { id: "p_taskmgr", title: "TaskManager.exe", meta: "PID 5501 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 5501" /v
+
+TaskManager.exe                 5501  0       0      1 8,192 K     0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 5501" /m
+  TaskManager.exe  5501  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USERENV.dll
+    UNICOWS.DLL
+    SHCORE.dll
+    KERNELAPP.DLL`
+      },
+      { id: "p_cmstp", title: "CMSTP.exe", meta: "PID 6122 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 6122" /v
+
+CMSTP.exe                       6122  0       0      1 9,216 K     0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 6122" /m
+  CMSTP.exe  6122  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    NETAPI32.dll
+    MSPI.DLL
+    MSINET.DLL`
+      },
+      { id: "p_rundll32", title: "rundll32.exe", meta: "PID 4211 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 4211" /v
+
+rundll32.exe                    4211  0       0      1 6,144 K     0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 4211" /m
+  rundll32.exe  4211  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWMAPI.dll
+    DInput8.dll
+    WINMM.dll
+    IMM32.dll
+    MSCTF.DLL`
+      },
+      { id: "p_notepad", title: "notepad.exe", meta: "PID 8890 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 8890" /v
+
+notepad.exe                     8890  0       0      1 6,144 K     0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 8890" /m
+  notepad.exe  8890  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    UNICOWS.DLL
+    USRCLASS.DLL`
+      },
+      { id: "p_wmiprvse", title: "wmiprvse.exe", meta: "PID 2501 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 2501" /v
+
+wmiprvse.exe                    2501  0       0      1 10,240 K    0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 2501" /m
+  wmiprvse.exe  2501  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IEFRAME.dll
+    MSCTF.DLL
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll`
+      },
+      { id: "p_winlogon", title: "winlogon.exe", meta: "PID 688 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 688" /v
+
+winlogon.exe                     688  0       0      1 8,192 K     0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 688" /m
+  winlogon.exe  688  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWM.dll
+    SHCORE.dll
+    APPHELP.DLL
+    USERENV.dll`
+      },
+      { id: "p_csrss", title: "csrss.exe", meta: "PID 724 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 724" /v
+
+csrss.exe                        724  0       0      1 14,336 K    0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 724" /m
+  csrss.exe  724  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    USER32.dll
+    KERNELBASE.dll
+    SHCORE.dll
+    API-MS-Win-Core-Thread-L1-1-0.DLL
+    API-MS-Win-Core-Console-L1-1-0.DLL
+    API-MS-Win-Core-File-L1-1-0.DLL
+    API-MS-Win-Core-ProcessEnv-L1-1-0.DLL
+    API-MS-Win-Security-Lsa-L1-1-0.DLL
+    API-MS-Win-Security-Base-L1-1-0.DLL`
+      },
+      { id: "p_winsrv", title: "winsrv.exe", meta: "PID 856 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 856" /v
+
+winsrv.exe                       856  0       0      1 10,240 K    0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 856" /m
+  winsrv.exe  856  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    SHCORE.dll
+    GDI32.dll
+    USER32.dll
+    KERNELBASE.dll`
+      },
+      { id: "p_spoolsv", title: "spoolsv.exe", meta: "PID 902 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 902" /v
+
+spoolsv.exe                     902  0       0      1 16,384 K    0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 902" /m
+  spoolsv.exe  902  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    SPOOLSS.DLL
+    VDICPL32.DLL
+    DWMAPI.dll
+    USERENV.dll`
+      },
+      { id: "p_atiadlxy", title: "atiadlxy.dll", meta: "PID unknown · AMD driver", kind: "neutral",
+        detail:
+`C:\\Windows\\System32\\drivers> tasklist /m /fi "modulename eq atiadlxy.dll"
+
+  Module name: atiadlxy.dll
+  Process ID: 7412 (javaw.exe)
+  Image Path: C:\\Windows\\System32\\DriverStore\\FileRepository\\atiadlxy.inf_amd64_neutral_6f4e1c4a9b8d\\atiadlxy.dll
+
+C:\\> sigcheck64 -v C:\\Windows\\System32\\drivers\\atiadlxy.dll
+  Publisher : Advanced Micro Devices, Inc. (valid)
+  Version : 16.30.31.3255
+  Path    : C:\\Windows\\System32\\drivers\\atiadlxy.dll`
+      },
+      { id: "p_nvwgks", title: "nvwgks.64.sys", meta: "PID unknown · NVIDIA driver", kind: "neutral",
+        detail:
+`C:\\Windows\\System32\\drivers> tasklist /m /fi "modulename eq nvwgks.64.sys"
+
+  Module name: nvwgks.64.sys
+  Process ID: 7412 (javaw.exe)
+
+C:\\> sigcheck64 -v C:\\Windows\\System32\\drivers\\nvwgks.64.sys
+  Publisher : NVIDIA Corporation (valid)
+  Version : 471.14
+  Path    : C:\\Windows\\System32\\drivers\\nvwgks.64.sys`
+      },
+      { id: "p_aswJfFlt", title: "asw0jfflt.sys", meta: "PID unknown · AV engine", kind: "neutral",
+        detail:
+`C:\\Windows\\System32\\drivers> tasklist /m /fi "modulename eq asw0jfflt.sys"
+
+  Module name: asw0jfflt.sys
+  Process ID: 1836 (MsMpEng.exe)
+
+C:\\> sigcheck64 -v C:\\Windows\\System32\\drivers\\asw0jfflt.sys
+  Publisher : Microsoft Corporation (valid)
+  Version : 4.18.24090.11-0
+  Path    : C:\\Windows\\System32\\drivers\\asw0jfflt.sys`
+      },
+      { id: "p_cisdhal", title: "cisdhal.dll", meta: "PID unknown · AMD", kind: "neutral",
+        detail:
+`C:\\Windows\\System32\\drivers> tasklist /m /fi "modulename eq cisdhal.dll"
+
+  Module name: cisdhal.dll
+  Process ID: 7412 (javaw.exe)
+
+C:\\> sigcheck64 -v C:\\Windows\\System32\\drivers\\cisdhal.dll
+  Publisher : Advanced Micro Devices, Inc. (valid)
+  Version : 16.30.31.3255
+  Path    : C:\\Windows\\System32\\drivers\\cisdhal.dll`
+      },
+      { id: "p_nvata", title: "nvata.sys", meta: "PID unknown · NVIDIA", kind: "neutral",
+        detail:
+`C:\\Windows\\System32\\drivers> tasklist /m /fi "modulename eq nvata.sys"
+
+  Module name: nvata.sys
+  Process ID: 1836 (MsMpEng.exe)
+
+C:\\> sigcheck64 -v C:\\Windows\\System32\\drivers\\nvata.sys
+  Publisher : NVIDIA Corporation (valid)
+  Version : 471.14
+  Path    : C:\\Windows\\System32\\drivers\\nvata.sys`
+      },
+      { id: "p_msvxd", title: "msvxhl.exe", meta: "PID 1002 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 1002" /v
+
+msvxhl.exe                     1002  0       0      1 2,048 K     0.00 %     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 1002" /m
+  msvxhl.exe  1002  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    WINMM.dll
+    USERENV.dll
+    WININET.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IMM32.dll
+    DWMAPI.dll`
+      },
+      { id: "p_wininit", title: "wininit.exe", meta: "PID 460 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 460" /v
+
+wininit.exe                     460  0       0      1 8,192 K     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 460" /m
+  wininit.exe  460  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    SHCORE.dll
+    USERENV.dll
+    WININET.dll
+    URLLOWLIB.dll
+    CRYPT32.dll
+    SECUR32.dll`
+      },
+      { id: "p_msvs32", title: "msvcp140.dll", meta: "PID unknown · Microsoft redist", kind: "neutral",
+        detail:
+`C:\\Windows\\System32> tasklist /m /fi "modulename eq msvcp140.dll"
+
+  Module name: msvcp140.dll
+  Process ID: 7412 (javaw.exe)
+  Image Path: C:\\WINDOWS\\SYSTEM32\\MSVCP140.DLL
+
+C:\\> sigcheck64 -v C:\\WINDOWS\\SYSTEM32\\MSVCP140.DLL
+  Publisher : Microsoft Corporation (valid)
+  Version : 14.0.30429.0
+  Path    : C:\\WINDOWS\\SYSTEM32\\MSVCP140.DLL`
+      },
+      { id: "p_vcruntime", title: "vcruntime140.dll", meta: "PID unknown · Microsoft redist", kind: "neutral",
+        detail:
+`C:\\Windows\\System32> tasklist /m /fi "modulename eq vcruntime140.dll"
+
+  Module name: vcruntime140.dll
+  Process ID: 7412 (javaw.exe)
+  Image Path: C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.DLL
+
+C:\\> sigcheck64 -v C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.DLL
+  Publisher : Microsoft Corporation (valid)
+  Version : 14.0.30429.0
+  Path    : C:\\WINDOWS\\SYSTEM32\\VCRUNTIME140.DLL`
+      },
+      { id: "p_verclsid", title: "verclsid.exe", meta: "PID 3336 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 3336" /v
+
+verclsid.exe                    3336  0       0      1 5,120 K     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 3336" /m
+  verclsid.exe  3336  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    CRYPT32.dll
+    SECUR32.dll`
+      },
+      { id: "p_userinit", title: "userinit.exe", meta: "PID 920 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 920" /v
+
+userinit.exe                      920  0       0      1 7,168 K     0:00.00  SYSTEM
+
+C:\\> tasklist /fi "pid eq 920" /m
+  userinit.exe  920  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    SHCORE.dll
+    USERENV.dll
+    WININET.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IMM32.dll`
+      },
+      { id: "p_dwmapi", title: "dwmapi.dll", meta: "PID unknown · Microsoft", kind: "neutral",
+        detail:
+`C:\\Windows\\System32> tasklist /m /fi "modulename eq dwmapi.dll"
+
+  Module name: dwmapi.dll
+  Process ID: 2804 (explorer.exe)
+  Image Path: C:\\WINDOWS\\SYSTEM32\\DWMAPI.DLL
+
+C:\\> sigcheck64 -v C:\\WINDOWS\\SYSTEM32\\DWMAPI.DLL
+  Publisher : Microsoft Corporation (valid)
+  Version : 10.0.22621.1
+  Path    : C:\\WINDOWS\\SYSTEM32\\DWMAPI.DLL`
+      },
+      { id: "p_SpVoice", title: "SPVoice.dll", meta: "PID unknown · Microsoft", kind: "neutral",
+        detail:
+`C:\\Windows\\System32> tasklist /m /fi "modulename eq SPVoice.dll"
+
+  Module name: SPVoice.dll
+  Process ID: 1836 (MsMpEng.exe)
+  Image Path: C:\\WINDOWS\\SYSTEM32\\SPVOICE.DLL
+
+C:\\> sigcheck64 -v C:\\WINDOWS\\SYSTEM32\\SPVOICE.DLL
+  Publisher : Microsoft Corporation (valid)
+  Version : 10.0.22621.1
+  Path    : C:\\WINDOWS\\SYSTEM32\\SPVOICE.DLL`
+      },
+      { id: "p_awd_os", title: "awd.exe", meta: "PID 7741 · unknown publisher · MAC a8:20:5a:29:17:2d · serial #staygu", kind: "trap",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\AWD> tasklist /fi "pid eq 7741" /v
+
+awd.exe                         7741  0       0      1 30,720 K    0.85 %     0:05.42  Steven
+
+C:\\> tasklist /fi "pid eq 7741" /m
+  awd.exe  7741  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWRITE.DLL
+    DWRITE_DLL
+    D3D12.dll
+    DXGI.DLL
+    MSCTF.DLL
+    VCRUNTIME140.dll
+    VCRUNTIME140_1.dll
+
+C:\\> wmic process where processid=7741 get commandline
+  CommandLine : awd.exe --window-style hidden --process-start "C:\\Windows\\System32\\cmd.exe"
+
+C:\\> sigcheck64 -accepteula C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awd.exe
+  Publisher: (no signature)
+  Version :2.4.1.7
+  Path    : C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awd.exe`
+      },
+      { id: "p_dpf_exe", title: "dpf.exe", meta: "PID 8322 · unknown publisher · mac 04:8a:29:17:2a:3c · serial sta271", kind: "trap",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 8322" /v
+
+dpf.exe                         8322  0       0      1 12,288 K    0.30 %     0:02.10  Steven
+
+C:\\> tasklist /fi "pid eq 8322" /m
+  dpf.exe  8322  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    D3D12.dll
+    D3D12CORELIBRARY.dll
+    D3DCOMPILER_47.dll
+    D3D11_DLL
+    D3D10_DLL
+    D3D9.DLL
+    DInput8.dll
+    WINMM.dll
+    IMM32.dll
+    MSCTF.DLL
+    V{diagoverlay}.dll
+    D3D12.dll
+    DXGI.DLL
+    SHCORE.dll
+    USERENV.dll
+
+C:\\> wmic process where processid=8322 get commandline
+  CommandLine : dpf.exe /hidden
+
+C:\\> sigcheck64 -accepteula C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe
+  Publisher: (no signature)
+  Version :1.0.0.3
+  Path    : C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe`
+      }
+    ],
+    services: [
+      { id: "s_eventlog", title: "EventLog", meta: "Running · Automatic", kind: "support",
+        detail:
+`C:\\> sc query EventLog
+
+SERVICE_NAME: EventLog
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
+
+Get-Service EventLog → Status: Running` },
+      { id: "s_sysmain", title: "SysMain", meta: "Running · Automatic", kind: "support",
+        detail:
+`C:\\> sc query SysMain
+
+SERVICE_NAME: SysMain
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
+
+C:\\> dir C:\\Windows\\Prefetch | find /c ".pf"
+18`
+      },
+      { id: "s_dcom", title: "DcomLaunch", meta: "Running · Automatic", kind: "neutral",
+        detail:
+`C:\\> sc query DcomLaunch
+
+SERVICE_NAME: DcomLaunch
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
+      { id: "s_dps", title: "DPS", meta: "Running · Automatic", kind: "neutral",
+        detail:
+`C:\\> sc query Dps
+
+SERVICE_NAME: Dps
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
+      { id: "s_sched", title: "Task Scheduler", meta: "Running · Automatic", kind: "neutral",
+        detail:
+`C:\\> sc query Schedule
+
+SERVICE_NAME: Schedule
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
+
+C:\\> schtasks /query | find /c "2026"
+41`
+      },
+      { id: "s_dusm", title: "DusmSvc (Data Usage)", meta: "Running · Automatic", kind: "neutral",
+        detail:
+`C:\\> sc query DusmSvc
+
+SERVICE_NAME: DusmSvc
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
+      { id: "s_bg", title: "BgActivityMonitor", meta: "Running · Manual", kind: "neutral",
+        detail:
+`C:\\> sc query BgActivityMonitor
+
+SERVICE_NAME: BgActivityMonitor
+        STATE              :4 RUNNING
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :3 DEMAND_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      }
+    ],
+    installed: [
+      { id: "i_ce", title: "Cheat Engine7.5", meta: "installed2026-06-11 · publisher: cheatengine.org", kind: "trap",
+        detail:
+`C:\\> reg query "HKLM\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s /f "Cheat Engine"
+
+DisplayName      : Cheat Engine7.5
+Publisher        : cheatengine.org
+InstallDate      :20260611
+EstimatedSize    :63,240 KB
+UninstallString  : "C:\\Program Files\\Cheat Engine\\unins000.exe"
+DisplayIcon      : C:\\Program Files\\Cheat Engine\\cheatengine-x86_64.exe
+No signature chain present for subject 'cheatengine.org'`
+      },
+      { id: "i_java", title: "Java8 Update411", meta: "installed2025-11-02 · Oracle", kind: "neutral",
+        detail:
+`DisplayName : Java8 Update411
+Publisher   : Oracle Corporation
+InstallDate :20251102
+Signed by   : Oracle America, Inc. (chain valid)`
+      },
+      { id: "i_discord", title: "Discord", meta: "installed2024-03-18 · Discord Inc.", kind: "neutral",
+        detail:
+`DisplayName : Discord
+Publisher   : Discord Inc.
+InstallDate :20240318`
+      },
+      { id: "i_steam", title: "Steam", meta: "installed2023-01-09 · Valve", kind: "neutral",
+        detail:
+`DisplayName : Steam
+Publisher   : Valve Corporation
+InstallDate :20230109`
+      },
+      { id: "i_awd", title: "AWD Overlay v2.4", meta: "installed2026-09-12 · publisher: (not verified)", kind: "evidence",
+        detail:
+`C:\\> reg query "HKLM\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s /f "AWD Overlay"
+
+DisplayName      : AWD Overlay v2.4
+DisplayVersion   :2.4.1.7
+Publisher        : (not verified)
+InstallDate      :20260912
+EstimatedSize    :45,056 KB
+UninstallString  : "C:\\Users\\Steve\\AppData\\Roaming\\AWD\\uninstall.exe"
+Signer           : no signature found for publisher '(not verified)'
+KeyPath          : C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awd.exe`
+      },
+      { id: "i_dpf", title: "DesktopPostFork v1.0", meta: "installed2026-09-12 · publisher: (not verified)", kind: "evidence",
+        detail:
+`C:\\> reg query "HKLM\\Microsoft\\Windows\\CurrentVersion\\Uninstall" /s /f "DesktopPostFork"
+
+DisplayName      : DesktopPostFork v1.0
+DisplayVersion   :1.0.0.3
+Publisher        : (not verified)
+InstallDate      :20260912
+EstimatedSize    :12,288 KB
+UninstallString  : "C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe"
+Signer           : no signature found for publisher '(not verified)'
+KeyPath          : C:\\Users\\AppData\\Local\\Temp\\dpf.exe`
+      },
+      { id: "i_java2", title: "Java8 Update411", meta: "installed2025-11-02 · Oracle", kind: "neutral",
+        detail:
+`DisplayName : Java8 Update411
+Publisher   : Oracle Corporation
+InstallDate :20251102`
+      },
+      { id: "i_discord2", title: "Discord", meta: "installed2024-07-30 · Discord Inc.", kind: "neutral",
+        detail:
+`DisplayName : Discord
+Publisher   : Discord Inc.
+InstallDate :20240730`
+      },
+      { id: "i_lunar", title: "Lunar Client", meta: "installed2024-09-08 · Lunar LLC", kind: "support",
+        detail:
+`DisplayName : Lunar Client
+Publisher   : Lunar LLC
+InstallDate :20240908
+Signed by   : Lunar LLC (chain valid)
+InstallLocation : C:\\Users\\Steve\\.lunarclient`
+      },
+      { id: "i_gfe", title: "NVIDIA GeForce Experience", meta: "installed2024-05-12 · NVIDIA", kind: "neutral",
+        detail:
+`DisplayName : NVIDIA GeForce Experience3.27.0.105
+Publisher   : NVIDIA Corporation
+InstallDate :20240512`
+      }
+    ],
+    startup: [
+      { id: "u_sec", title: "SecurityHealthSystray", meta: "HKLM\\...\\Run · Microsoft", kind: "neutral",
+        detail:
+`HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "SecurityHealthSystray"="%windir%\\system32\\SecurityHealthSystray.exe"`
+
+      },
+      { id: "u_onedrive", title: "OneDrive", meta: "HKCU\\...\\Run · Microsoft", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "OneDrive"="C:\\Users\\Steve\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe /background"`
+
+      },
+      { id: "u_steam", title: "Steam", meta: "HKCU\\...\\Run · Valve", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "Steam"="C:\\Program Files (x86)\\Steam\\steam.exe -silent"`
+
+      },
+      { id: "u_discord", title: "Discord", meta: "HKCU\\...\\Run · Discord Inc.", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "Discord"="C:\\Users\\Steve\\AppData\\Local\\Discord\\Update.exe --processStart Discord.exe"`
+
+      },
+      { id: "u_awd", title: "AWD Overlay v2.4", meta: "HKCU\\...\\Run · unknown publisher", kind: "evidence",
+        detail:
+`C:\\> reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+
+  "AWD Overlay v2.4"  REG_SZ  "C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awdstart.exe"
+
+C:\\> dir C:\\Users\\Steve\\AppData\\Roaming\\AWD
+  2026-09-12 18:30        98,304  awdstart.exe
+
+C:\\> sigcheck64 C:\\Users\\Steve\\AppData\\Roaming\\AWD\\awdstart.exe
+  Publisher : (no signature)`
+      },
+      { id: "u_dpf", title: "DesktopPostFork v1.0", meta: "HKCU\\...\\Run · unknown publisher", kind: "evidence",
+        detail:
+`C:\\> reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
+
+  "DesktopPostFork v1.0"  REG_SZ  "C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe /hidden"
+
+C:\\> dir C:\\Users\\Steve\\AppData\\Local\\Temp
+  2026-09-12 18:30        12,288  dpf.exe
+
+C:\\> sigcheck64 C:\\Users\\Steve\\AppData\\Local\\Temp\\dpf.exe
+  Publisher : (no signature)`
+      },
+      { id: "u_wofer", title: "WorldEditForge", meta: "HKCU\\...\\Run · EngineHub", kind: "neutral",
+        detail:
+`HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+  "WorldEditForge"="C:\\Program Files (x86)\\WorldEditForge\\we.exe"`
+
+      },
+      { id: "u_vbox", title: "VirtualBoxService", meta: "HKLM\\...\\Services · Oracle", kind: "neutral",
+        detail:
+`HKLM\\SYSTEM\\CurrentControlSet\\Services\\vboxService
+  Type        : 2 (SERVICE_KERNEL_DRIVER)
+  StartType   : 3 (SYSTEM_START)
+  DisplayName : VirtualBox Service
+
+C:\\> sc query vboxService
+  SERVICE_NAME: vboxService
+  STATE: 4 RUNNING
+  DISPLAY_NAME: VirtualBox Service (Oracle Corporation, 2012)`
+      }
     ],
     scan: {
       label: "OCEAN-STYLE SCAN (SIMULATED)",
@@ -429,8 +1416,9 @@ Signer: Valve Corporation (chain valid)` }
       "  round14 — same angle, instant headshot through crate\n" +
       "  ping28-34ms throughout, no compensation spikes\n\n" +
       "Clip: #reports/2026-09-30-nova.mp4\n" +
-      "She denies everything: “check everything, I'm clean.”\n\n" +
+      "She denies everything: “check everything, I'm clean.”\n" +
       "Task Manager during the check shows a quiet machine. The obvious checks come back empty.",
+
     correctVerdict: ["ban"],
     verdictNote: "Deleted files still leave execution records. Prefetch + a fresh install + unknown persistence is concrete.",
     files: [
@@ -441,9 +1429,13 @@ Signer: Valve Corporation (chain valid)` }
         meta: "188 KB ·2026-09-28 21:14",
         kind: "evidence",
         detail:
-`C:\\Windows\\Prefetch\\GLCLIENT.LAUNCHER.EXE-7D3A9F21.pf   192,512 bytes
+`C:\\Windows\\Prefetch> dir /o-d
 
-Parsed by OS tool (kernel PF header):
+GLCLIENT.LAUNCHER.EXE-7D3A9F21.pf   188 KB   2026-09-28 21:14
+GLCLIENT.LAUNCHER.EXE-7D3A9F22.pf   188 KB   2026-09-28 21:14
+
+C:\\Windows\\Prefetch> pfparser GLCLIENT.LAUNCHER.EXE-7D3A9F21.pf
+
   Executable name : GLCLIENT.LAUNCHER.EXE
   Resolved path   : C:\\Users\\Steve\\AppData\\Local\\Ghost\\glclient.exe
   Version         :3.2.0.114
@@ -455,14 +1447,14 @@ Parsed by OS tool (kernel PF header):
 Trace strings found in PF section:
   ghost-overlay64.dll · screen-capture-hook · d3d11.dll · PresentHook
 
-C:\\> dir "C:\\Users\\Steve\\AppData\\Local\\Ghost\\glclient.exe"
+C:\\Windows\\Prefetch> dir \"C:\\Users\\Steve\\AppData\\Local\\Ghost\\glclient.exe\"
   File Not Found`
       },
       {
         id: "f_ghost_folder",
         title: "Ghost\\ (folder)",
         path: "C:\\Users\\Steve\\AppData\\Local\\",
-        meta: "empty · modified2026-09-30",
+        meta: "empty ·2026-09-30",
         kind: "support",
         detail:
 `C:\\Users\\Steve\\AppData\\Local> dir /a
@@ -486,7 +1478,6 @@ FileRecordModified  2026-09-3022:14:02   \\$MFT\\...\\Ghost\\overlay.dll`
         kind: "support",
         detail:
 `C:\\Users\\Steve\\Downloads\\
-
 2026-09-28 21:10    19,612,103  ghost-setup.zip
 
 C:\\> tar -tf ghost-setup.zip
@@ -505,7 +1496,7 @@ Zone.Identifier (ADS):
         id: "f_latestlog2",
         title: "latest.log",
         path: "C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\logs\\",
-        meta: "208 KB · last write2026-09-30 19:02",
+        meta: "208 KB ·2026-09-30 19:02",
         kind: "neutral",
         detail:
 `[18:44:01] [Main/INFO]: Launching in vanilla mode
@@ -550,46 +1541,554 @@ tables:
   downloads 122 rows`
       }
     ],
+    launcherStartup: [
+      {
+        id: "ls_justice2",
+        title: "Justice Client · v2.4.1",
+        meta: "mods:24 · launched2026-09-30 20:54:00",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe — startup log, 2026-09-30 20:54:00
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9-vanilla”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Checking for updates…
+[00:00:05] Verifying checksums …
+[00:00:06] 24 mods found in mods\\ folder
+[00:00:07] 2026-09-30 20:54:00 0.234s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:08] Game ready.`
+      },
+      {
+        id: "ls_lunar2",
+        title: "Lunar Client · v4.6.2",
+        meta: "mods:58 · launched2026-09-30 20:54:02",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe — startup log, 2026-09-30 20:54:02
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 58 mods found in mods\\ folder
+[00:00:06] 2026-09-30 20:54:02 0.201s  java -Xmx2G -cp lunar-launcher.jar LunarClientTweaker --version 1.8.9
+[00:00:07] Game ready.`
+      },
+      {
+        id: "ls_feather2",
+        title: "Feather Client · v5.6.11",
+        meta: "mods:21 · launched2026-09-30 20:54:01",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe — startup log, 2026-09-30 20:54:01
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 21 mods found in mods\\ folder
+[00:00:06] 2026-09-30 20:54:01 0.251s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:07] Game ready.`
+      }
+    ],
+    mods: [
+      { id: "mb_begger2", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
+2026-05-04 12:22        184,320  better-weather-1.8.jar
+2026-05-04 12:22        307,200  auto-craft-1.8.jar
+2026-05-04 12:22        258,048  fast-login-1.8.jar
+2026-05-04 12:22        196,608  health-bar-1.8.jar
+2026-05-04 12:22        229,376  rain-boost-1.8.jar
+2026-05-04 12:22        235,520  auto-enchant-1.8.jar
+2026-05-04 12:22        311,296  anti-kill-1.8.jar
+2026-05-04 12:22        225,280  fast-break-1.8.jar
+2026-05-04 12:22        245,760  auto-sneak-1.8.jar
+2026-05-04 12:22        314,112  long-punch-1.8.jar
+2026-05-04 12:22        212,992  aim-compensate-1.8.jar
+2026-05-04 12:22        240,896  x-ray-1.8.jar
+2026-05-04 12:22        327,680  hog-1.8.jar
+2026-05-04 12:22        294,912  bed-rocket-1.8.jar
+2026-05-04 12:22        286,720  auto-armor-1.8.jar
+2026-05-04 12:22        262,144  fast-drops-1.8.jar
+2026-05-04 12:22        303,104  knockback-1.8.jar
+2026-05-04 12:22        253,952  fast-water-1.8.jar
+2026-05-04 12:22        322,560  auto-potion-1.8.jar
+2026-05-04 12:22        270,336  fast-mine-1.8.jar
+2026-05-04 12:22        282,240  auto-ping-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+22`
+      },
+      { id: "mb_hack2", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
+2026-09-14 19:01        65,536  unknownoum-1.8.jar
+2026-09-14 19:01        58,368  fast-move-1.8.jar
+2026-09-14 19:01        61,440  xray-plus-1.8.jar
+2026-09-14 19:01        55,296  aim-lock-1.8.jar
+2026-09-14 19:01        62,464  auto-click-1.8.jar
+2026-09-14 19:01        52,224  kill-bot-1.8.jar
+2026-09-14 19:01        63,488  wall-see-1.8.jar
+2026-09-14 19:01        57,344  bow-speed-1.8.jar
+2026-09-14 19:01        54,272  smart-breach-1.8.jar
+2026-09-14 19:01        59,392  hitbox-1.8.jar
+2026-09-14 19:01        60,416  no-errors-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+12`
+      }
+    ],
     processes: [
       { id: "p_javaw2", title: "javaw.exe", meta: "PID 5528 · Oracle", kind: "neutral",
         detail:
-`CommandLine:
-  javaw.exe -Xmx2G -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 5528" /v
 
-ExecutablePath : C:\\Program Files\\Java\\jre1.8.0_411\\bin\\javaw.exe
-Signer         : Oracle Corporation (chain valid)
-Modules        :78 · injected modules:0` },
+javaw.exe                       5528  0       0      1 2,456,576 K 2.17 %     0:28.44  Steven
+
+C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 5528" /m
+  javaw.exe  5528  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IEFRAME.dll
+    MSVCRT.dll
+    VERSION.dll
+    MSCOREE.4.DLL
+    netman.dll
+    VKMSPLUGIN.DLL
+
+C:\\> wmic process where processid=5528 get commandline,modulesinjected
+  CommandLine : javaw.exe -Xmx2G -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+  ModulesInjected : 0`
+      },
       { id: "p_discord2", title: "Discord.exe", meta: "PID 2860 · Discord Inc.", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Users\\Steve\\AppData\\Local\\Discord\\app-1.0.9186\\Discord.exe" --branch=stable
+`C:\\> tasklist /fi "pid eq 2860" /v
 
-Signer : Discord Inc. (chain valid)` },
+Discord.exe                     2860  0       0      1 148,224 K  1.95 %     0:28.22  Steven
+
+C:\\> tasklist /fi "pid eq 2860" /m
+  Discord.exe  2860  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL`
+      },
       { id: "p_obs", title: "obs64.exe", meta: "PID 9012 · OBS Project", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe" --minimize-to-tray
+`C:\\> tasklist /fi "pid eq 9012" /v
 
-Signer : OBS Project (chain valid)
-Streams:2 (local replay buffer,30s)` },
+obs64.exe                       9012  0       0      1 68,128 K    0.80 %     0:09.11  Steven
+
+C:\\> tasklist /fi "pid eq 9012" /m
+  obs64.exe  9012  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWRITE.DLL
+    D3D12.dll
+    DXGI.DLL
+    D3D11_DLL
+    D3DCOMPILER_47.dll
+    D3D10_DLL
+    D3D9.DLL
+    V{diagoverlay}.dll
+    DInput8.dll
+    WINMM.dll
+    IMM32.dll
+    MSCTF.DLL
+    USERENV.dll
+    DWMAPI.dll`
+      },
       { id: "p_explorer2", title: "explorer.exe", meta: "PID 2144 · Microsoft", kind: "neutral",
         detail:
-`CommandLine:
-  C:\\Windows\\explorer.exe
+`C:\\> tasklist /fi "pid eq 2144" /v
 
-Signer : Microsoft Windows (chain valid)` },
+explorer.exe                    2144  0       0      1 42,368 K    0.00 %     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 2144" /m
+  explorer.exe  2144  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    USERENV.dll
+    UNICOWS.DLL
+    SHCORE.dll
+    API-MS-Win-Core-LibraryLoader-L1-1-0.DLL
+    api-ms-win-core-memory-L1-1-0.DLL
+    api-ms-win-core-sysinfo-l1-1-0.DLL
+    api-ms-win-core-heap-l1-1-0.DLL
+    ntoskrnl.exe`
+      },
       { id: "p_onedrive2", title: "OneDrive.exe", meta: "PID 3976 · Microsoft", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Program Files\\Microsoft OneDrive\\OneDrive.exe" /background
+`C:\\> tasklist /fi "pid eq 3976" /v
 
-Signer : Microsoft Corporation (chain valid)` },
+OneDrive.exe                    3976  0       0      1 148,224 K  0.50 %     0:04.12  Steven
+
+C:\\> tasklist /fi "pid eq 3976" /m
+  OneDrive.exe  3976  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    USERENV.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWMAPI.dll
+    USERENV.dll
+    DWRITE.DLL
+    D3D12.dll
+    DXGI.DLL
+    SHCORE.dll`
+      },
       { id: "p_msmpeng2", title: "MsMpEng.exe", meta: "PID 1620 · Microsoft", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.24090.11-0\\MsMpEng.exe"
+`C:\\> tasklist /fi "pid eq 1620" /v
 
-Signer : Microsoft Windows (chain valid)` }
+MsMpEng.exe                   1620  0       0      1 148 MB      2.45 %     0:15.10  SYSTEM
+C:\\> tasklist /fi "pid eq 1620" /m
+  MsMpEng.exe  1620  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    CRYPT32.dll
+    SECUR32.dll
+    BCrypt.dll
+    DIsPapi.dll
+    IEFRAME.dll
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll`
+      },
+      { id: "p_taskmgr2", title: "TaskManager.exe", meta: "PID 5501 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 5501" /v
+
+TaskManager.exe                 5501  0       0      1 8,192 K     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 5501" /m
+  TaskManager.exe  5501  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USERENV.dll
+    UNICOWS.DLL
+    SHCORE.dll
+    KERNELAPP.DLL`
+      },
+      { id: "p_cmstp2", title: "CMSTP.exe", meta: "PID 6122 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 6122" /v
+
+CMSTP.exe                       6122  0       0      1 9,216 K     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 6122" /m
+  CMSTP.exe  6122  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    NETAPI32.dll
+    MSPI.DLL
+    MSINET.DLL`
+      },
+      { id: "p_rundll322", title: "rundll32.exe", meta: "PID 4211 · Microsoft", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 4211" /v
+
+rundll32.exe                    4211  0       0      1 6,144 K     0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 4211" /m
+  rundll32.exe  4211  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWMAPI.dll
+    DInput8.dll
+    WINMM.dll
+    IMM32.dll
+    MSCTF.DLL`
+      },
+      { id: "p_edac", title: "EDAC.exe", meta: "PID 10445 · unknown publisher", kind: "trap",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 10445" /v
+
+EDAC.exe                       10445  0       0      1 20,480 K    0.15 %     0:01.10  Steven
+
+C:\\> tasklist /fi "pid eq 10445" /m
+  EDAC.exe  10445  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    DWRITE.DLL
+    D3D12.dll
+    D3D12CORELIBRARY.dll
+    D3DCOMPILER_47.dll
+    D3D11_DLL
+    D3D10_DLL
+    D3D9.DLL
+    DInput8.dll
+    WINMM.dll
+    IMM32.dll
+    MSCTF.DLL
+    V{diagoverlay}.dll
+    D3D12.dll
+    DXGI.DLL
+    SHCORE.dll
+    USERENV.dll
+
+C:\\> wmic process where processid=10445 get commandline
+  CommandLine : EDAC.exe --service hide --config C:\\Users\\Steve\\AppData\\Local\\Temp\\edac.cfg
+
+C:\\> sigcheck64 -accepteula C:\\Users\\Steve\\AppData\\Local\\Temp\\EDAC.exe
+  Publisher: (no signature)
+  Version :0.9.8.2
+  Path    : C:\\Users\\Steve\\AppData\\Local\\Temp\\EDAC.exe`
+      },
+      { id: "p_javaw3", title: "javaw.exe", meta: "PID 6604 · Oracle", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 6604" /v
+
+javaw.exe                       6604  0       0      1 2,512,384 K 3.20 %     0:31.05  Steven
+
+C:\\> tasklist /fi "pid eq 6604" /m
+  javaw.exe  6604  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IEFRAME.dll
+    MSVCRT.dll
+    VERSION.dll
+    MSCOREE.4.DLL
+    netman.dll
+    VKMSPLUGIN.DLL
+
+C:\\> wmic process where processid=6604 get commandline,modulesinjected
+  CommandLine : javaw.exe -Xmx3G -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+  ModulesInjected : 0`
+      },
+      { id: "p_python", title: "python.exe", meta: "PID 8120 · Python Software Fdn", kind: "trap",
+        detail:
+`C:\\> tasklist /fi "pid eq 8120" /v
+
+python.exe                      8120  0       0      1 12,288 K    0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 8120" /m
+  python.exe  8120  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    HTTPSYS.DLL
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll
+
+C:\\> wmic process where processid=8120 get commandline
+  CommandLine : python.exe -m http.server8080
+  ExecutablePath : C:\\Users\\Steve\\AppData\\Local\\Programs\\Python\\Python312\\python.exe
+  Signer         : Python Software Foundation (chain valid, not-before2024-01-11)
+  Listening      : TCP0.0.0.0:8080 (LAN)
+  Started        :2026-09-3017:44:02`
+      },
+      { id: "p_discord3", title: "Discord.exe", meta: "PID 3140 · Discord Inc.", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 3140" /v
+
+Discord.exe                     3140  0       0      1 148,224 K  1.50 %     0:24.10  Steven
+
+C:\\> tasklist /fi "pid eq 3140" /m
+  Discord.exe  3140  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL`
+      },
+      { id: "p_chrome", title: "chrome.exe", meta: "PID 7788 · Google LLC", kind: "neutral",
+        detail:
+`C:\\> tasklist /fi "pid eq 7788" /v
+
+chrome.exe                      7788  0       0      1 148,224 K  4.10 %     0:32.02  Steven
+
+C:\\> tasklist /fi "pid eq 7788" /m
+  chrome.exe  7788  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL
+    SHCORE.dll
+    USERENV.dll
+    CRYPT32.dll
+    WININET.dll`
+      }
     ],
     services: [
       { id: "s_eventlog2", title: "EventLog", meta: "Running · Automatic", kind: "support",
@@ -598,45 +2097,88 @@ Signer : Microsoft Windows (chain valid)` }
 
 SERVICE_NAME: EventLog
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
+
+Get-Service EventLog → Status: Running` },
       { id: "s_sysmain2", title: "SysMain", meta: "Running · Automatic", kind: "support",
         detail:
 `C:\\> sc query SysMain
 
 SERVICE_NAME: SysMain
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
 
 C:\\> dir C:\\Windows\\Prefetch | find /c ".pf"
-44` },
+44`
+      },
       { id: "s_dcom2", title: "DcomLaunch", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query DcomLaunch
 
 SERVICE_NAME: DcomLaunch
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_dps2", title: "DPS", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query Dps
 
 SERVICE_NAME: Dps
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_sched2", title: "Task Scheduler", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query Schedule
 
 SERVICE_NAME: Schedule
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_bg", title: "BgActivityMonitor", meta: "Running · Manual", kind: "neutral",
         detail:
 `C:\\> sc query BgActivityMonitor
 
 SERVICE_NAME: BgActivityMonitor
         STATE              :4 RUNNING
-        START_TYPE         :3 DEMAND_START` }
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :3 DEMAND_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      }
     ],
     installed: [
       { id: "i_ghost", title: "Ghost Overlay v3.2", meta: "installed2026-09-29 · publisher: (not verified)", kind: "evidence",
@@ -650,44 +2192,51 @@ InstallDate      :20260929
 EstimatedSize    :28,672 KB
 UninstallString  : "C:\\Users\\Steve\\AppData\\Local\\Ghost\\uninstall.exe"
 Signer           : no signature found for publisher '(not verified)'
-KeyPath          : C:\\Users\\Steve\\AppData\\Local\\Ghost\\overlay-service.exe` },
+KeyPath          : C:\\Users\\Steve\\AppData\\Local\\Ghost\\overlay-service.exe`
+      },
       { id: "i_java2", title: "Java8 Update411", meta: "installed2025-11-02 · Oracle", kind: "neutral",
         detail:
 `DisplayName : Java8 Update411
 Publisher   : Oracle Corporation
-InstallDate :20251102` },
+InstallDate :20251102`
+      },
       { id: "i_discord2", title: "Discord", meta: "installed2024-07-30 · Discord Inc.", kind: "neutral",
         detail:
 `DisplayName : Discord
 Publisher   : Discord Inc.
-InstallDate :20240730` },
+InstallDate :20240730`
+      },
       { id: "i_gfe", title: "NVIDIA GeForce Experience", meta: "installed2024-05-12 · NVIDIA", kind: "neutral",
         detail:
 `DisplayName : NVIDIA GeForce Experience3.27.0.105
 Publisher   : NVIDIA Corporation
-InstallDate :20240512` }
+InstallDate :20240512`
+      }
     ],
     startup: [
-      { id: "u_thumbs", title: "system_tray_helper", meta: "HKCU\\\\...\\\\Run · unknown publisher", kind: "evidence",
+      { id: "u_thumbs", title: "system_tray_helper", meta: "HKCU\\...\\Run · unknown publisher", kind: "evidence",
         detail:
 `C:\\> reg query "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"
 
-  "system_tray_helper"  REG_SZ  rundll32.exe C:\\Users\\Steve\\AppData\\Roaming\\Thumbs\\cache.dat,Entry
+  "system_tray_helper"  REG_SZ  "C:\\Users\\Steve\\AppData\\Roaming\\Thumbs\\cache.dat,Entry"
 
 C:\\> dir C:\\Users\\Steve\\AppData\\Roaming\\Thumbs
- 2026-09-2922:41        412,672  cache.dat
+  2026-09-2922:41        412,672  cache.dat
 
 C:\\> sigcheck64 C:\\Users\\Steve\\AppData\\Roaming\\Thumbs\\cache.dat
-Publisher : (no signature)
-Type      :64-bit DLL,3 exports (Entry, DllRegisterServer, ?)` },
-      { id: "u_sec2", title: "SecurityHealthSystray", meta: "HKLM\\\\...\\\\Run · Microsoft", kind: "neutral",
+  Publisher : (no signature)
+  Type      :64-bit DLL,3 exports (Entry, DllRegisterServer, ?)`
+      },
+      { id: "u_sec2", title: "SecurityHealthSystray", meta: "HKLM\\...\\Run · Microsoft", kind: "neutral",
         detail:
 `HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
-  "SecurityHealthSystray"="%windir%\\system32\\SecurityHealthSystray.exe"` },
-      { id: "u_onedrive2", title: "OneDrive", meta: "HKCU\\\\...\\\\Run · Microsoft", kind: "neutral",
+  "SecurityHealthSystray"="%windir%\\system32\\SecurityHealthSystray.exe"`
+      },
+      { id: "u_onedrive2", title: "OneDrive", meta: "HKCU\\...\\Run · Microsoft", kind: "neutral",
         detail:
 `HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
-  "OneDrive"="C:\\Users\\Steve\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe /background"` }
+  "OneDrive"="C:\\Users\\Steve\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe /background"`
+      }
     ],
     scan: {
       label: "OCEAN-STYLE SCAN (SIMULATED)",
@@ -735,6 +2284,7 @@ Type      :64-bit DLL,3 exports (Entry, DllRegisterServer, ?)` },
       "  attached clip :12s of efficient diamond pathing, HUD not visible, one short lag stutter\n\n" +
       "No anticheat flags. No prior record. She consented to the check immediately.\n" +
       "Rumor plus a clip got her frozen. What you do next defines the standard.",
+
     correctVerdict: ["clean", "insufficient"],
     verdictNote: "Everything checks out. A ban here would be exactly the false accusation the process exists to prevent.",
     files: [
@@ -826,7 +2376,7 @@ History.db            44,018,688 bytes    last write2026-09-30 17:55
 tables:
   urls      18,441 rows
   visits    24,009 rows
-  downloads    57 rows`
+  downloads      57 rows`
       },
       {
         id: "f_temp3",
@@ -836,55 +2386,304 @@ tables:
         kind: "neutral",
         detail:
 `C:\\Users\\Steve\\AppData\\Local\\Temp> dir /o-d | more
-
 2026-09-3018:02       524,288  nvcache.tmp
 2026-09-3017:58        41,902  Chromium-CrashPad-1759249082.dmp
-2026-09-3009:11         2,048  ~DF4C91.tmp
-...`
+2026-09-3009:11         2,048  ~DF4C91.tmp`
+      }
+    ],
+    launcherStartup: [
+      {
+        id: "ls_justice3",
+        title: "Justice Client · v2.4.1",
+        meta: "mods:24 · launched2026-09-30 18:11:50",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe — startup log, 2026-09-30 18:11:50
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9-vanilla”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Checking for updates…
+[00:00:05] Verifying checksums …
+[00:00:06] 24 mods found in mods\\ folder
+[00:00:07] 2026-09-30 18:11:50 0.234s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:08] Game ready.`
+      },
+      {
+        id: "ls_lunar3",
+        title: "Lunar Client · v4.6.2",
+        meta: "mods:58 · launched2026-09-30 18:12:00",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe — startup log, 2026-09-30 18:12:00
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 58 mods found in mods\\ folder
+[00:00:06] 2026-09-30 18:12:00 0.201s  java -Xmx2G -cp lunar-launcher.jar LunarClientTweaker --version 1.8.9
+[00:00:07] Game ready.`
+      },
+      {
+        id: "ls_feather3",
+        title: "Feather Client · v5.6.11",
+        meta: "mods:21 · launched2026-09-30 18:11:59",
+        kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe — startup log, 2026-09-30 18:11:59
+
+[00:00:01] Initializing launcher…
+[00:00:02] Loading profile “1.8.9”
+[00:00:03] Resolving game directory: C:\\Users\\Steve\\AppData\\Roaming\\.minecraft
+[00:00:04] Verifying checksums …
+[00:00:05] 21 mods found in mods\\ folder
+[00:00:06] 2026-09-30 18:11:59 0.251s  java -Xmx2G -jar minecraft.jar --version 1.8.9
+[00:00:07] Game ready.`
+      }
+    ],
+    mods: [
+      { id: "mb_begger3", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
+2026-05-04 12:22        184,320  better-weather-1.8.jar
+2026-05-04 12:22        307,200  auto-craft-1.8.jar
+2026-05-04 12:22        258,048  fast-login-1.8.jar
+2026-05-04 12:22        196,608  health-bar-1.8.jar
+2026-05-04 12:22        229,376  rain-boost-1.8.jar
+2026-05-04 12:22        235,520  auto-enchant-1.8.jar
+2026-05-04 12:22        311,296  anti-kill-1.8.jar
+2026-05-04 12:22        225,280  fast-break-1.8.jar
+2026-05-04 12:22        245,760  auto-sneak-1.8.jar
+2026-05-04 12:22        314,112  long-punch-1.8.jar
+2026-05-04 12:22        212,992  aim-compensate-1.8.jar
+2026-05-04 12:22        240,896  x-ray-1.8.jar
+2026-05-04 12:22        327,680  hog-1.8.jar
+2026-05-04 12:22        294,912  bed-rocket-1.8.jar
+2026-05-04 12:22        286,720  auto-armor-1.8.jar
+2026-05-04 12:22        262,144  fast-drops-1.8.jar
+2026-05-04 12:22        303,104  knockback-1.8.jar
+2026-05-04 12:22        253,952  fast-water-1.8.jar
+2026-05-04 12:22        322,560  auto-potion-1.8.jar
+2026-05-04 12:22        270,336  fast-mine-1.8.jar
+2026-05-04 12:22        282,240  auto-ping-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+22`
+      },
+      { id: "mb_hack3", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
+        detail:
+`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
+2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
+2026-09-14 19:01        65,536  unknownoum-1.8.jar
+2026-09-14 19:01        58,368  fast-move-1.8.jar
+2026-09-14 19:01        61,440  xray-plus-1.8.jar
+2026-09-14 19:01        55,296  aim-lock-1.8.jar
+2026-09-14 19:01        62,464  auto-click-1.8.jar
+2026-09-14 19:01        52,224  kill-bot-1.8.jar
+2026-09-14 19:01        63,488  wall-see-1.8.jar
+2026-09-14 19:01        57,344  bow-speed-1.8.jar
+2026-09-14 19:01        54,272  smart-breach-1.8.jar
+2026-09-14 19:01        59,392  hitbox-1.8.jar
+2026-09-14 19:01        60,416  no-errors-1.8.jar
+
+C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
+12`
       }
     ],
     processes: [
       { id: "p_javaw3", title: "javaw.exe", meta: "PID 6604 · Oracle", kind: "neutral",
         detail:
-`CommandLine:
-  javaw.exe -Xmx3G -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+`C:\\Users\\Steve\\AppData\\Local\\Temp> tasklist /fi "pid eq 6604" /v
 
-ExecutablePath : C:\\Program Files\\Java\\jre1.8.0_411\\bin\\javaw.exe
-Signer         : Oracle Corporation (chain valid)
-Modules        :74 · injected modules:0` },
+javaw.exe                       6604  0       0      1 2,512,384 K 3.20 %     0:31.05  Steven
+
+C:\\> tasklist /fi "pid eq 6604" /m
+  javaw.exe  6604  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    IEFRAME.dll
+    MSVCRT.dll
+    VERSION.dll
+    MSCOREE.4.DLL
+    netman.dll
+    VKMSPLUGIN.DLL
+
+C:\\> wmic process where processid=6604 get commandline,modulesinjected
+  CommandLine : javaw.exe -Xmx3G -cp .minecraft\\versions\\1.8.9\\1.8.9.jar net.minecraft.client.main.Main
+  ModulesInjected : 0`
+      },
       { id: "p_python", title: "python.exe", meta: "PID 8120 · Python Software Fdn", kind: "trap",
         detail:
-`CommandLine:
-  python.exe -m http.server8080
+`C:\\> tasklist /fi "pid eq 8120" /v
 
-ExecutablePath : C:\\Users\\Steve\\AppData\\Local\\Programs\\Python\\Python312\\python.exe
-Signer         : Python Software Foundation (chain valid, not-before2024-01-11)
-Listening      : TCP0.0.0.0:8080 (LAN)
-Started        :2026-09-3017:44:02` },
+python.exe                      8120  0       0      1 12,288 K    0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 8120" /m
+  python.exe  8120  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    WININET.dll
+    URLLOWLIB.dll
+    WINHTTP.dll
+    CRYPT32.dll
+    SECUR32.dll
+    HTTPSYS.DLL
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll
+
+C:\\> wmic process where processid=8120 get commandline
+  CommandLine : python.exe -m http.server8080
+  ExecutablePath : C:\\Users\\Steve\\AppData\\Local\\Programs\\Python\\Python312\\python.exe
+  Signer         : Python Software Foundation (chain valid, not-before2024-01-11)
+  Listening      : TCP0.0.0.0:8080 (LAN)
+  Started        :2026-09-3017:44:02`
+      },
       { id: "p_discord3", title: "Discord.exe", meta: "PID 3140 · Discord Inc.", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Users\\Steve\\AppData\\Local\\Discord\\app-1.0.9186\\Discord.exe" --branch=stable
+`C:\\> tasklist /fi "pid eq 3140" /v
 
-Signer : Discord Inc. (chain valid)` },
+Discord.exe                     3140  0       0      1 148,224 K  1.50 %     0:24.10  Steven
+
+C:\\> tasklist /fi "pid eq 3140" /m
+  Discord.exe  3140  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL`
+      },
       { id: "p_chrome", title: "chrome.exe", meta: "PID 7788 · Google LLC", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --profile-directory=Default
+`C:\\> tasklist /fi "pid eq 7788" /v
 
-Signer : Google LLC (chain valid)` },
+chrome.exe                      7788  0       0      1 148,224 K  4.10 %     0:32.02  Steven
+
+C:\\> tasklist /fi "pid eq 7788" /m
+  chrome.exe  7788  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    CRYPT32.dll
+    WS2_32.dll
+    WINMM.dll
+    DBGHELP.DLL
+    PSAPI.DLL
+    VERSION.dll
+    MSVCRT.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    USP10.dll
+    DWRAP.dll
+    dwmapi.dll
+    IMM32.dll
+    MSCTF.DLL
+    UNICODEFORMAT.DLL
+    MSCTF.CONV.COMBO.DLL
+    MSCTF.DLL
+    SHCORE.dll
+    USERENV.dll
+    CRYPT32.dll
+    WININET.dll`
+      },
       { id: "p_explorer3", title: "explorer.exe", meta: "PID 2056 · Microsoft", kind: "neutral",
         detail:
-`CommandLine:
-  C:\\Windows\\explorer.exe
+`C:\\> tasklist /fi "pid eq 2056" /v
 
-Signer : Microsoft Windows (chain valid)` },
+explorer.exe                    2056  0       0      1 42,368 K    0:00.00  Steven
+
+C:\\> tasklist /fi "pid eq 2056" /m
+  explorer.exe  2056  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    COMDLG32.dll
+    SHLWAPI.dll
+    OLEAUT32.dll
+    USERENV.dll
+    UNICOWS.DLL
+    SHCORE.dll
+    API-MS-Win-Core-LibraryLoader-L1-1-0.DLL
+    api-ms-win-core-memory-L1-1-0.DLL
+    api-ms-win-core-sysinfo-l1-1-0.DLL
+    api-ms-win-core-heap-l1-1-0.DLL
+    ntoskrnl.exe`
+      },
       { id: "p_msmpeng3", title: "MsMpEng.exe", meta: "PID 1744 · Microsoft", kind: "neutral",
         detail:
-`CommandLine:
-  "C:\\ProgramData\\Microsoft\\Windows Defender\\Platform\\4.18.24090.11-0\\MsMpEng.exe"
+`C:\\> tasklist /fi "pid eq 1744" /v
 
-Signer : Microsoft Windows (chain valid)` }
+MsMpEng.exe                   1744  0       0      1 148 MB      2.45 %     0:15.10  SYSTEM
+C:\\> tasklist /fi "pid eq 1744" /m
+  MsMpEng.exe  1744  Modules
+    KERNEL32.DLL
+    ntdll.dll
+    ADVAPI32.dll
+    KERNELBASE.dll
+    USER32.dll
+    GDI32.dll
+    SHELL32.dll
+    OLEAUT32.dll
+    CRYPT32.dll
+    SECUR32.dll
+    BCrypt.dll
+    DIsPapi.dll
+    IEFRAME.dll
+    WS2_32.dll
+    MSVCRT.dll
+    VERSION.dll`
+      }
     ],
     services: [
       { id: "s_eventlog3", title: "EventLog", meta: "Running · Automatic", kind: "support",
@@ -893,45 +2692,88 @@ Signer : Microsoft Windows (chain valid)` }
 
 SERVICE_NAME: EventLog
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
+
+Get-Service EventLog → Status: Running` },
       { id: "s_sysmain3", title: "SysMain", meta: "Running · Automatic", kind: "support",
         detail:
 `C:\\> sc query SysMain
 
 SERVICE_NAME: SysMain
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0
 
 C:\\> dir C:\\Windows\\Prefetch | find /c ".pf"
-42` },
+42`
+      },
       { id: "s_dcom3", title: "DcomLaunch", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query DcomLaunch
 
 SERVICE_NAME: DcomLaunch
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_dps3", title: "DPS", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query Dps
 
 SERVICE_NAME: Dps
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_sched3", title: "Task Scheduler", meta: "Running · Automatic", kind: "neutral",
         detail:
 `C:\\> sc query Schedule
 
 SERVICE_NAME: Schedule
         STATE              :4 RUNNING
-        START_TYPE         :2 AUTO_START` },
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :2 AUTO_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      },
       { id: "s_bg3", title: "BgActivityMonitor", meta: "Running · Manual", kind: "neutral",
         detail:
 `C:\\> sc query BgActivityMonitor
 
 SERVICE_NAME: BgActivityMonitor
         STATE              :4 RUNNING
-        START_TYPE         :3 DEMAND_START` }
+        WIN32_EXIT_CODE    :0
+        STOP_CODE          :0
+        SERVICES_START_TYPE :3 DEMAND_START
+        SERVICES_ERROR_CONTROL:1
+        WAIT_HINT          :0
+        CHECKPOINT         :0
+        TOTAL_DELAY        :0`
+      }
     ],
     installed: [
       { id: "i_lunar", title: "Lunar Client", meta: "installed2024-09-08 · Lunar LLC", kind: "support",
@@ -940,38 +2782,44 @@ SERVICE_NAME: BgActivityMonitor
 Publisher   : Lunar LLC
 InstallDate :20240908
 Signed by   : Lunar LLC (chain valid)
-InstallLocation : C:\\Users\\Steve\\.lunarclient` },
+InstallLocation : C:\\Users\\Steve\\.lunarclient`
+      },
       { id: "i_java3", title: "Java8 Update411", meta: "installed2025-11-02 · Oracle", kind: "neutral",
         detail:
 `DisplayName : Java8 Update411
 Publisher   : Oracle Corporation
-InstallDate :20251102` },
+InstallDate :20251102`
+      },
       { id: "i_discord3", title: "Discord", meta: "installed2023-11-21 · Discord Inc.", kind: "neutral",
         detail:
 `DisplayName : Discord
 Publisher   : Discord Inc.
-InstallDate :20231121` },
+InstallDate :20231121`
+      },
       { id: "i_steam3", title: "Steam", meta: "installed2022-06-14 · Valve", kind: "neutral",
         detail:
 `DisplayName : Steam
 Publisher   : Valve Corporation
-InstallDate :20220614` }
+InstallDate :20220614`
+      }
     ],
     startup: [
-      { id: "u_sec3", title: "SecurityHealthSystray", meta: "HKLM\\\\...\\\\Run · Microsoft", kind: "neutral",
+      { id: "u_sec3", title: "SecurityHealthSystray", meta: "HKLM\\...\\Run · Microsoft", kind: "neutral",
         detail:
 `HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
-  "SecurityHealthSystray"="%windir%\\system32\\SecurityHealthSystray.exe"` },
-      { id: "u_onedrive3", title: "OneDrive", meta: "HKCU\\\\...\\\\Run · Microsoft", kind: "neutral",
+  "SecurityHealthSystray"="%windir%\\system32\\SecurityHealthSystray.exe"`
+      },
+      { id: "u_onedrive3", title: "OneDrive", meta: "HKCU\\...\\Run · Microsoft", kind: "neutral",
         detail:
 `HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
-  "OneDrive"="C:\\Users\\Steve\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe /background"` },
-      { id: "u_adobe", title: "Adobe GC Invoker", meta: "HKLM\\\\...\\\\Run · Adobe", kind: "neutral",
+  "OneDrive"="C:\\Users\\Steve\\AppData\\Local\\Microsoft\\OneDrive\\OneDrive.exe /background"`
+      },
+      { id: "u_adobe", title: "Adobe GC Invoker", meta: "HKLM\\...\\Run · Adobe", kind: "neutral",
         detail:
 `HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
-  "AdobeAAMUpdater-1.0"="C:\\Program Files (x86)\\Common Files\\Adobe\\OOBE\\PDApp\\UWA\\updater.exe"
+  "AdobeAAMUpdater-1.0"="C:\\Program Files (x86)\\Common Files\\Adobe\\OOBE\\PDApp\\PDAppUpdater.exe"`
 
-Signer : Adobe Systems Incorporated (chain valid)` }
+      }
     ],
     scan: {
       label: "OCEAN-STYLE SCAN (SIMULATED)",
