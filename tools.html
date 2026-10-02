@@ -3,8 +3,65 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Safe SS tools — SS Academy</title>
-  <meta name="description" content="How to judge if a Minecraft screenshare tool is safe: a 7-point rubric, Ocean and Echo notes, Sysinternals, and the scam red flags.">
+  <title>Safe Minecraft SS Tools — Ocean, FreeEcho, Sysinternals | SS Academy</title>
+  <meta name="description" content="Which Minecraft screenshare (SS) tools are safe to install: a 7-point rubric to score any tool, notes on Ocean, FreeEcho, JavaTweak, Meow Client Fucker and Microsoft Sysinternals, plus the scam patterns to avoid.">
+  <meta name="keywords" content="minecraft ss tools, ocean ss tool, freeecho, is ocean ss tool safe, minecraft screenshare tool, minecraft staff tools, sysinternals minecraft, ss tool scam">
+  <link rel="canonical" href="https://tomeiiihrby-web.github.io/ss-academy/tools.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="SS Academy">
+  <meta property="og:title" content="Safe Minecraft SS Tools — SS Academy">
+  <meta property="og:description" content="A 7-point rubric for judging any screenshare tool, notes on the real ones, and the scam patterns that fake tools use.">
+  <meta property="og:url" content="https://tomeiiihrby-web.github.io/ss-academy/tools.html">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2357d17a'/%3E%3Crect%20width='16'%20height='5'%20fill='%232c7a48'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is the Ocean SS Tool safe to use on my Minecraft server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ocean is the most widely deployed free automated Minecraft screenshare scanner and publishes its detection logs and documentation, and its companion freeze plugin is open source on GitHub. The core client is closed source, so trust rests on its public docs and staff adoption rather than a source audit. Download only from anticheat.ac: lookalike domains and free-pin offers are the standard scam, and no legitimate scanner ever asks you to disable your antivirus."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is FreeEcho and how does it compare to Ocean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "FreeEcho is one of the two long-running detection platforms named alongside Ocean in major Minecraft networks' public screenshare policies, and networks build custom scan flows on top of it. It is free to use, but its ecosystem has scattered tutorials, so confirm the current official domain through your server's staff chain before installing it on any staff machine."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the safest screenshare tool for Minecraft staff?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Microsoft Sysinternals. Process Explorer shows command lines and what is injected into javaw.exe, and Autoruns lists every startup entry, Run key and scheduled task in one view. Both are signed by Microsoft, free, and decades trusted, and they need no third party at all — which also makes them the right fallback when a server's scanner is down or untrusted."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I know if a Minecraft SS tool is a scam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Score it on seven points and walk away at three misses: official source only, never a Discord DM, short link or lookalike domain; verifiable publisher with signed binaries or a public repo; it never asks you to disable antivirus or add exclusions; transparent about what data leaves the machine; honest pricing with no discounted pins, resellers or cracked builds; used by networks whose public SS policies you can read; and it stays in its lane. A tool promising instant bans or undetectability is selling you a bypass."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do I need an SS tool at all, or can I screenshare manually?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No tool is required. A manual walk covers most of what scanners find: processes and command lines, the .minecraft instance, installed programs and dates, startup and Run entries, Prefetch execution history, and Windows services. Tools only speed up triage — and every detection still has to be opened and verified by hand before it can go in a report, because an unverified detection is worth nothing at appeal."
+        }
+      }
+    ]
+  }
+  </script>
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2357d17a'/%3E%3Crect%20width='16'%20height='5'%20fill='%232c7a48'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/styles.css">
 </head>
@@ -191,6 +248,33 @@
       <div class="cta-row" style="margin-top:26px">
         <a class="btn btn-accent btn-lg" href="practice.html">▶ Practice the manual walk</a>
         <a class="btn btn-lg" href="index.html">Read the process</a>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2 class="section-title">Tool questions, answered</h2>
+      <p class="section-sub">The five questions staff ask before they let anything touch a player's machine.</p>
+      <div class="faq">
+        <details class="faq-item" open>
+          <summary>Is the Ocean SS Tool safe to use on my Minecraft server?</summary>
+          <p>Ocean is the most widely deployed free automated Minecraft screenshare scanner, and it publishes its detection logs and documentation — you can see what it claims to find and why. Its companion freeze plugin is open source on GitHub. The core client is closed source, so trust rests on its public docs and staff adoption rather than a source audit. <b>Download only from anticheat.ac:</b> lookalike domains and “free pin” offers are the standard way this one gets impersonated, and no legitimate scanner ever asks you to disable your antivirus.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is FreeEcho and how does it compare to Ocean?</summary>
+          <p>FreeEcho is one of the two long-running detection platforms named alongside Ocean in major networks’ public screenshare policies, and networks build custom scan flows on top of it. It is free, but its ecosystem has scattered tutorials — confirm the current official domain through your server’s staff chain before installing it on any staff machine. Same rule as Ocean: it produces leads, and you still open every hit by hand.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is the safest screenshare tool for Minecraft staff?</summary>
+          <p>Microsoft Sysinternals. <b>Process Explorer</b> is a Task Manager that actually shows command lines and what is injected into <code>javaw.exe</code>; <b>Autoruns</b> lists every startup entry, Run key, scheduled task and shell extension in one view. Both are signed by Microsoft, free, and decades trusted — and they need no third party at all, which also makes them the right fallback when a server’s scanner is down or you do not trust it.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I know if a Minecraft SS tool is a scam?</summary>
+          <p>Run the 7-point rubric above and walk away at three misses. In practice the pattern is always the same: it comes from a DM or a short link rather than a domain, it wants antivirus disabled or an exclusion folder added, it sells “pins” at a discount or offers a cracked build, it promises instant bans or undetectability, or it asks for your password, a token or a screenshot of a login. Any one of those ends the evaluation there.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need an SS tool at all, or can I screenshare manually?</summary>
+          <p>No tool is required — the <a href="index.html">manual walk</a> covers most of what scanners find: processes and command lines, the <code>.minecraft</code> instance, installed programs and dates, startup and Run keys, Prefetch execution history, and Windows services. Tools only speed up triage. Every detection still has to be opened and verified by hand before it can go in a report, because an unverified detection is worth nothing at appeal.</p>
+        </details>
       </div>
     </section>
 

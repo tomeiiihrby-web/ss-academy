@@ -473,6 +473,11 @@
       return opened + "/" + total + " findings opened by hand";
     }
     if (def[t.key]) return def[t.key];
+    if (t.key === "proc" && sc.taskmgr) {
+      var n = sc.taskmgr.length;
+      var jw = sc.taskmgr.filter(function (r) { return r.item && r.item.indexOf("javaw") !== -1; })[0];
+      return n + " processes enumerated → " + n + " rows read" + (jw ? " · javaw PID " + jw.pid : "");
+    }
     var prop = TEST_PROP[t.key];
     var arr = prop ? (sc[prop] || []) : [];
     return arr.length + " rows enumerated → " + panelLabel(prop);
@@ -579,6 +584,8 @@
     body.appendChild(head);
 
     if (state.panel === "scan") { renderScan(body); return; }
+    if (state.panel === "processes") { renderTaskManager(body); return; }
+    if (state.panel === "mods") { renderModFolders(body); return; }
 
     var list = document.createElement("div");
     list.className = "rows";
@@ -595,37 +602,160 @@
         meta.className = "launcher-startup-meta";
         meta.textContent = it.meta || "";
         block.appendChild(meta);
-        var log = document.createElement("p");
+        var log = document.createElement("pre");
         log.className = "launcher-startup-log";
         log.textContent = it.detail || "";
         block.appendChild(log);
       });
       list.appendChild(block);
-    } else if (state.panel === "mods") {
-      var mods = sc.mods || [];
-      if (mods.length === 0) {
-        var hint = document.createElement("p");
-        hint.className = "muted";
-        hint.textContent = "No mod folders assigned to this case.";
-        list.appendChild(hint);
-      } else {
-        mods.forEach(function (it) { list.appendChild(rowEl(it)); });
-      }
     } else {
       (sc[state.panel] || []).forEach(function (it) { list.appendChild(rowEl(it)); });
     }
     body.appendChild(list);
   }
 
+  /* ---------- the machine wall: Task Manager, every row, nothing labelled ---------- */
+
+  function renderTaskManager(body) {
+    var sc = state.scenario;
+    var rows = sc.taskmgr || [];
+    if (!rows.length) return;
+
+    var wrap = document.createElement("div");
+    wrap.className = "tm";
+
+    var bar = document.createElement("div");
+    bar.className = "tm-bar";
+    bar.textContent = rows.length + " processes · sorted by name · click any row to read its modules";
+    wrap.appendChild(bar);
+
+    var table = document.createElement("div");
+    table.className = "tm-table";
+    table.setAttribute("role", "table");
+
+    var head = document.createElement("div");
+    head.className = "tm-row tm-head-row";
+    ["Name", "PID", "Session", "Memory", "CPU", "User name"].forEach(function (h) {
+      var c = document.createElement("span");
+      c.className = "tm-c";
+      c.textContent = h;
+      head.appendChild(c);
+    });
+    table.appendChild(head);
+
+    rows.forEach(function (r) {
+      var tr = document.createElement("button");
+      tr.className = "tm-row" + (r.item && state.flagged[r.item] ? " cited" : "");
+      tr.setAttribute("role", "row");
+      [r.n, r.pid, r.sess, r.mem, r.cpu, r.user].forEach(function (v) {
+        var c = document.createElement("span");
+        c.className = "tm-c";
+        c.textContent = String(v);
+        tr.appendChild(c);
+      });
+      tr.addEventListener("click", function () {
+        if (r.item) openItem(r.item);
+        else openRowDetail(r);
+      });
+      table.appendChild(tr);
+    });
+
+    wrap.appendChild(table);
+    body.appendChild(wrap);
+  }
+
+  /* a process with no evidence record behind it: read-only, still inspectable */
+  function openRowDetail(r) {
+    pendingItem = null;
+    if (!state.inspected["tm:" + r.n + r.pid]) {
+      state.inspected["tm:" + r.n + r.pid] = true;
+      markAction();
+    }
+    var lines = [];
+    lines.push(r.n + "                    " + r.pid + "  Console  1  " + r.mem + "  " + r.cpu + "  " + r.user);
+    lines.push("");
+    lines.push(r.n + "  " + r.pid + "  Modules");
+    r.mods.forEach(function (m) { lines.push("  " + m); });
+    lines.push("");
+    lines.push("Image path   : (query) " + r.n);
+    lines.push("Company      : " + r.pub);
+    lines.push("Description  : " + r.n);
+    lines.push("File version : " + (1 + Math.floor(r.pid % 9)) + "." + (r.pid % 40) + "." + (r.pid % 17) + "." + (r.pid % 7));
+    lines.push("Product name : " + r.pub);
+
+    $("modal-title").textContent = r.n;
+    $("modal-sub").textContent = "PID " + r.pid + " · session " + r.sess;
+    $("modal-meta").textContent = r.mem + " · " + r.cpu + " · " + r.user;
+    $("rights-warn").hidden = true;
+    $("modal-detail").hidden = false;
+    $("modal-detail").textContent = lines.join("\n");
+    $("modal-actions").hidden = true;
+    $("modal").hidden = false;
+  }
+
+  /* ---------- mod folders: the pack that decides the case ---------- */
+
+  function renderModFolders(body) {
+    var sc = state.scenario;
+    var folders = sc.modFolders || [];
+    var list = document.createElement("div");
+    list.className = "rows";
+
+    folders.forEach(function (f) {
+      var row = document.createElement("button");
+      row.className = "row mod-folder-row";
+      row.innerHTML =
+        '<span class="row-main"><span class="row-title">' + f.label + "</span>" +
+        '<span class="row-sub">' + f.folder + "</span></span>" +
+        '<span class="mod-count">' + f.count + " jars</span>";
+      row.addEventListener("click", function () { openModFolder(f); });
+      list.appendChild(row);
+    });
+
+    body.appendChild(list);
+  }
+
+  function openModFolder(f) {
+    pendingItem = null;
+    markAction();
+    $("modal-title").textContent = f.label + "\\";
+    $("modal-sub").textContent = f.folder;
+    $("modal-meta").textContent = f.meta;
+
+    var lines = [];
+    if (f.count === 0 || !f.lines) {
+      lines.push("C:\\Users\\Steve\\AppData\\Roaming\\.minecraft> dir " + f.label);
+      lines.push(" File Not Found");
+      lines.push("");
+      lines.push("C:\\> fsutil usn readjournal C: | findstr /i " + f.label.slice(5).toLowerCase());
+      lines.push("FileRecordDeleted  2026-09-30 22:14:02   \\$MFT\\...\\" + f.label + "\\mod-0041.jar");
+    } else {
+      lines.push("C:\\Users\\Steve\\AppData\\Roaming\\.minecraft> dir " + f.label);
+      lines.push("");
+      f.lines.forEach(function (l) { lines.push(l); });
+      lines.push("");
+      lines.push("        " + f.count + " File(s)");
+    }
+    lines.push("");
+    lines.push("> dir " + f.label + " | find /c \".jar\"");
+    lines.push((f.count || 0).toString());
+
+    $("rights-warn").hidden = true;
+    $("modal-detail").hidden = false;
+    $("modal-detail").textContent = lines.join("\n");
+    $("modal-actions").hidden = true;
+    $("modal").hidden = false;
+  }
+
   function panelBlurb(key) {
     switch (key) {
       case "files": return "Browse the machine. Open anything that looks worth a second look.";
-      case "processes": return "What is running right now — with command lines.";
+      case "processes": return "Every process the machine is running. Read the name, the publisher and the loaded modules — most of this list is nothing.";
       case "services": return "Disabled services = deleted forensic trail = attempted bypass.";
       case "installed": return "Programs & features, with install dates.";
       case "startup": return "What runs at login — persistence lives here.";
     case "ls": return "Launcher logs and the mod count for each client.";
-    case "mods": return "What the game process loaded — with injected-module counts.";
+    case "mods": return "The mod folders sitting in the instance. Open one and actually read the file list.";
       case "scan": return "Automated output is a lead, never a verdict.";
       default: return "";
     }
@@ -1208,6 +1338,15 @@
 
   function init() {
     if (!$("case-grid")) return; // not on practice.html
+
+    /* fold the machine wall into each case: process table + mod folders */
+    var machines = window.MACHINES || {};
+    (window.SCENARIOS || []).forEach(function (sc) {
+      var m = machines[sc.id];
+      if (!m) return;
+      sc.taskmgr = m.taskmgr;
+      sc.modFolders = m.modFolders;
+    });
 
     renderModes();
     renderModeBadge();

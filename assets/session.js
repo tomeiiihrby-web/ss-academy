@@ -17,7 +17,7 @@ window.MODES = [
     tag: "TOOL-ASSISTED",
     sub: "Automated scan + manual verification",
     desc: "You get the scanner. It triages a machine in seconds — but every hit it prints is a lead you must open and verify yourself before it can go anywhere near a report.",
-    bullets: ["Ocean-style scanner available", "Fast triage, every hit verified by hand", "10 protocol tests"]
+    bullets: ["Ocean-style scanner available", "Fast triage, every hit verified by hand", "Launcher startup + module sweep", "10 protocol tests"]
   },
   {
     key: "notools",
@@ -25,7 +25,7 @@ window.MODES = [
     tag: "MANUAL WALK",
     sub: "Hands only — the fallback that always works",
     desc: "No scanner: the tool is down, untrusted, or policy says walk it by hand. Every check runs yourself. Slower — and it builds the skill that survives when the tool is gone.",
-    bullets: ["No scanner — manual only", "Execution-history sweep does the heavy lifting", "8 protocol tests"]
+    bullets: ["No scanner — manual only", "Execution-history sweep does the heavy lifting", "Launcher startup + module sweep", "8 protocol tests"]
   }
 ];
 
@@ -37,6 +37,8 @@ window.TESTS = [
   { key: "files",  label: "INSTANCE SWEEP",      sub: ".minecraft files",     panel: "files",     dur: 1100 },
   { key: "serv",   label: "SERVICE INTEGRITY",   sub: "Forensic trail",       panel: "services",  dur: 700 },
   { key: "star",   label: "STARTUP PERSISTENCE", sub: "Run keys + tasks",     panel: "startup",   dur: 800 },
+  { key: "ls",     label: "LAUNCHER STARTUP",    sub: "Launcher logs + mod counts", panel: "files", dur: 900 },
+  { key: "mods",   label: "MODULE SWEEP",        sub: "Injection + module counts", panel: "processes", dur: 900 },
   { key: "inst",   label: "INSTALLED PROGRAMS",  sub: "Programs & features",  panel: "installed", dur: 700 },
   { key: "pf",     label: "EXECUTION HISTORY",   sub: "Prefetch (SysMain)",   panel: "files",     dur: 900 },
   { key: "scan",   label: "AUTOMATED SCAN",      sub: "Ocean-style tool",     panel: "scan", modes: ["tools"], dur: 0, action: "scan" },
@@ -55,13 +57,20 @@ window.TEST_RESULT_DEFAULT = {
   rights: "consent + refusal rights read aloud · logged to the recording"
 };
 
-window.TEST_RESULT_OVERRIDE = {  blatant: {
+window.TEST_RESULT_OVERRIDE = {
+  blatant: {
+    ls: "C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe → mods:24 · launched2026-09-30 20:53:58\nC:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe → mods:58 · launched2026-09-30 20:54:02\nC:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe → mods:21 · launched2026-09-30 20:54:01 · game ready",
+    mods: "javaw.exe PID7412 → modules:78 · injected modules:0\njavaw.exe PID6604 → modules:74 · injected modules:0\ninjector.exe PID9840 → modules:8 (none injected into javaw)",
     pf: "C:\\Windows\\Prefetch →18 .pf files · newest JAVAW.EXE-3D21A9C4.pf (2026-09-3020:54)"
   },
   ghost: {
+    ls: "C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe → mods:24 · launched2026-09-30 20:54:00\nC:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe → mods:58 · launched2026-09-30 20:54:02\nC:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe → mods:21 · launched2026-09-30 20:54:01 · game ready",
+    mods: "javaw.exe PID5528 → modules:78 · injected modules:0\njavaw.exe PID6604 → modules:74 · injected modules:0\nEDAC.exe PID10445 → modules:24 · injected modules:0 (no target PID)",
     pf: "C:\\Windows\\Prefetch → GLCLIENT.LAUNCHER.EXE-7D3A9F21.pf · runs3 · first2026-09-2821:14 · last2026-09-2922:03 · target path does not resolve → FILES"
   },
   clean: {
+    ls: "C:\\Users\\Steve\\AppData\\Local\\Justice\\launcher.exe → mods:24 · launched2026-09-30 18:11:50\nC:\\Users\\Steve\\AppData\\Local\\LunarClient\\launcher.exe → mods:58 · launched2026-09-30 18:12:00\nC:\\Users\\Steve\\AppData\\Local\\Feather\\launcher.exe → mods:21 · launched2026-09-30 18:11:59 · game ready",
+    mods: "javaw.exe PID6604 → modules:74 · injected modules:0\npython.exe PID8120 → modules:8 · injected modules:0 (local http.server)",
     pf: "C:\\Windows\\Prefetch →42 .pf files · all42 resolve to installed paths"
   }
 };
@@ -108,6 +117,26 @@ window.BEATS = [
       { t: "The server's official screenshare scanner — from the published link, not a DM. Its output is only a lead: anything I cite, I open by hand in front of you, on the recording.", tag: "good", reply: "ok. as long as it's recorded." },
       { t: "A little program that finds people like you.", tag: "bad", why: "Vagueness about what ran on their machine reads as concealment — and secrecy about tooling is a manipulation tell in either direction." },
       { t: "It already flagged you, so this is basically over.", tag: "bad", why: "Announcing detections before verifying them invites an argument about the log instead of the artifact — and pre-decides the verdict." }
+    ]
+  },
+  {
+    id: "ls_convo",
+    when: "test:ls",
+    line: "what's all this launcher stuff? my game's vanilla, nothing to see here.",
+    options: [
+      { t: "The launcher logs are the audit trail of where that instance came from. The mod count is what we compare against the server's allowed list.", tag: "good", reply: "…right. that's fair." },
+      { t: "Launcher logs? I don't think that's allowed.", tag: "bad", why: "Launcher startup and mod counts are program files — in scope and ordinary to open. Leaving them out makes the report weaker than it has to be." },
+      { t: "Whatever. My game's clean.", tag: "bad", why: "Dismissing a standard check without explaining why is exactly how a case goes cold at appeal." }
+    ]
+  },
+  {
+    id: "mods_convo",
+    when: "test:mods",
+    line: "modules? that's just the java runtime loading. what about me, you're looking at my pc like it's a crime scene.",
+    options: [
+      { t: "The count is what we compare against the server's allowed list. What I'm looking at is whether the game's own process is telling the truth — 78 modules, 0 injected.", tag: "good", reply: "…okay." },
+      { t: "So you think I'm using something.", tag: "bad", why: "Accusing the player of cheating in the middle of the check is the kind of wording that ends a staff position." },
+      { t: "It's not a crime scene. It's our server. Try to keep up.", tag: "bad", why: "A recorded tone of contempt lands right beside your username when the panel reads it back." }
     ]
   },
 
@@ -294,7 +323,7 @@ window.QUIZ = {
   ]
 };
 
-/* ---------- appeal: the panel challenges your file ----------
+/* ---------- appeal: the panel challenges your file
  * Three case-specific challenges. A wrong answer on a question with a `target`
  * STRIKES that citation from the report (if you cited it). A ban left standing
  * on zero evidence is overturned regardless of the original verdict.

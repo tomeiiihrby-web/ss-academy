@@ -3,10 +3,102 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>SS Academy — Learn to screenshare in Minecraft</title>
-  <meta name="description" content="Train as Minecraft server staff: the screenshare process, manual no-tools checks, safe tools like Ocean, and the evidence standard.">
+  <title>SS Academy — Minecraft Screenshare (SS / PC Check) Guide &amp; Practice Simulator</title>
+  <meta name="description" content="Free guide to Minecraft screenshares (SS / PC checks) for server staff: how to run one, the manual no-tools walk, safe SS tools (Ocean, FreeEcho, Sysinternals), player rights, and the evidence standard. Includes a practice simulator.">
+  <meta name="keywords" content="minecraft screenshare, ss academy, how to screenshare minecraft, minecraft pc check, minecraft staff training, ocean ss tool, freeecho, minecraft anticheat, how to ban a cheater minecraft">
+  <link rel="canonical" href="https://tomeiiihrby-web.github.io/ss-academy/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="SS Academy">
+  <meta property="og:title" content="SS Academy — Minecraft Screenshare (SS / PC Check) Guide">
+  <meta property="og:description" content="The full screenshare process for Minecraft server staff, plus a free practice simulator with three cases.">
+  <meta property="og:url" content="https://tomeiiihrby-web.github.io/ss-academy/">
+  <meta name="twitter:card" content="summary">
   <link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2016%2016'%3E%3Crect%20width='16'%20height='16'%20fill='%2357d17a'/%3E%3Crect%20width='16'%20height='5'%20fill='%232c7a48'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a screenshare (SS) on a Minecraft server?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A screenshare, also called a PC check, is a recorded, supervised walkthrough of a player's own computer run by server staff to look for client-side cheats the server cannot detect — reach, aim assist, x-ray, wallhacks and injected clients all run on the player's machine. Staff connect through the official remote tool, walk the machine by hand, and file a report from what the recording shows."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you run a screenshare properly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Freeze the player and move to a private channel, state exactly why they are being checked, start recording before anything else and read out their rights, connect only through the official remote tool and your server's published ID, run the automated scan if you use one, walk the machine manually, verify by hand every artifact you intend to cite, then file the verdict from the recording. Skipping the recording or the manual verification is how bans get overturned."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What can a player refuse during a Minecraft screenshare?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Standard SS policy treats browser and search history, personal files and photos, passwords, tokens, logged-in sessions, and Discord or social media dumps as invasive searches the player may refuse. A refusal carries a rules penalty, not proof of cheating. Opening any of these anyway stamps a procedural breach that can void the whole session and the punishment with it."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you check for cheats manually, with no tools?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Seven checks on a stock Windows machine cover most of what scanners find: processes and command lines and what is attached to javaw.exe; the game instance in %appdata%\\.minecraft; installed programs with install dates; startup and Run entries; Prefetch execution history in C:\\Windows\\Prefetch; Windows services, where a disabled EventLog, SysMain or DPS is deleted evidence; then reconcile whatever the scan found."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What evidence do you need to ban a player for cheating in Minecraft?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Concrete, verified, layered artifacts that you personally opened on the recording — for example a cheat jar whose manifest hashes against nothing Mojang publishes, plus a live process holding a write handle into javaw.exe, plus the launch log proving it loaded. What never meets the bar: a tool detection you never opened, Cheat Engine merely being installed, anticheat flags alone, or a confident accusation in chat."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are Ocean, FreeEcho and the other Minecraft SS tools, and which are safe?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Ocean (anticheat.ac) is the most widely deployed free automated scanner, with a public freeze plugin. FreeEcho (freeecho.net) is the other long-running platform named in major networks' public SS policies. Both run live investigations on a player's machine, so verify the source before installing anything on staff machines. Microsoft Sysinternals (Process Explorer, Autoruns) is the gold standard and needs no third party at all."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I know if an SS tool is a scam?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Score it on seven points and walk away at three misses: official source only, never a Discord DM or short link; verifiable publisher with signed binaries or a public repo; it never asks you to disable antivirus; transparent about what data leaves the machine; honest pricing with no discounted pins or cracked builds; used by networks whose public SS policies you can read; and it stays in its lane, because tools detect and humans decide. A tool promising instant bans or undetectability is selling a bypass."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I practise a Minecraft screenshare before running a real one?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. The SS Academy practice simulator runs three cases against simulated machines. You run the protocol tests, keep the suspect talking on comms, cite only what you verified by hand, answer a field test, then defend the file when an appeal panel challenges your citations. Case 01 is blatant, case 02 is deleted evidence that looks clean in Task Manager, and case 03 is the one where the correct verdict is to let the player walk."
+        }
+      }
+    ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "SS Academy",
+    "alternateName": ["SS Academy Minecraft", "Minecraft Screenshare Academy"],
+    "url": "https://tomeiiihrby-web.github.io/ss-academy/",
+    "description": "Training for Minecraft server staff: how to run a screenshare (SS / PC check), the manual no-tools walk, safe SS tools, and the evidence standard.",
+    "inLanguage": "en",
+    "publisher": { "@type": "Organization", "name": "SS Academy" }
+  }
+  </script>
 </head>
 <body>
 
@@ -121,6 +213,45 @@
       </div>
       <div class="cta-row" style="margin-top:26px">
         <a class="btn btn-accent btn-lg" href="practice.html">▶ Prove it: run case 01</a>
+      </div>
+    </section>
+
+    <section id="faq">
+      <h2 class="section-title">Questions staff actually ask</h2>
+      <p class="section-sub">Straight answers, no sales pitch. If your server's written policy differs from any of these, the policy wins.</p>
+      <div class="faq">
+        <details class="faq-item" open>
+          <summary>What is a screenshare (SS) on a Minecraft server?</summary>
+          <p>A screenshare — also called a PC check — is a recorded, supervised walkthrough of a player's own computer, run by server staff, to look for client-side cheats the server can never detect. Reach, aim assist, x-ray, wallhacks and injected clients all run on the player's machine, so the server has no way to see them. The staff member connects through the official remote tool, walks the machine by hand, and files a report from what the recording shows.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do you run a screenshare properly?</summary>
+          <p>Seven steps, in order: freeze the player and move to a private channel; state exactly why they are being checked; <b>start recording before anything else</b> and read out their rights (they may record too, a supervisor may sit in, and they may refuse); connect only through the official remote tool and your server's published ID; run the automated scan if you use one; walk the machine manually; verify by hand every artifact you intend to cite; then file the verdict from the recording. Skipping the recording or the manual verification is how bans get overturned.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What can a player refuse during a Minecraft screenshare?</summary>
+          <p>Standard SS policy treats browser and search history, personal files and photos, passwords, tokens, logged-in sessions, and Discord or social media dumps as invasive searches the player may refuse. A refusal carries a rules penalty — it is <i>not</i> proof of cheating. Opening any of these anyway stamps a procedural breach that can void the whole session and the punishment with it, even if you found something real.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do you check for cheats manually, with no tools?</summary>
+          <p>Seven checks on a stock Windows machine cover most of what scanners find: processes and command lines (Task Manager → Details, and what is attached to <code>javaw.exe</code>); the game instance in <code>%appdata%\.minecraft</code>; installed programs with their install dates; startup and Run entries; Prefetch execution history in <code>C:\Windows\Prefetch</code>; Windows services (a disabled EventLog, SysMain or DPS is deleted evidence); then reconcile whatever the scan found. This site teaches and drills the whole walk.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What evidence do you need to ban a player for cheating in Minecraft?</summary>
+          <p>Concrete, verified, layered artifacts that you personally opened on the recording — for example a cheat jar whose manifest hashes against nothing Mojang publishes, plus a live process holding a write handle into <code>javaw.exe</code>, plus the launch log proving it loaded. What never meets the bar: a tool detection you never opened, Cheat Engine merely being installed, anticheat flags alone, or a confident accusation in chat. If you cannot show it on the recording, it does not exist.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What are Ocean, FreeEcho and the other Minecraft SS tools, and which are safe?</summary>
+          <p><b>Ocean</b> (anticheat.ac) is the most widely deployed free automated scanner, with a public freeze plugin. <b>FreeEcho</b> (freeecho.net) is the other long-running platform named in major networks' public SS policies. Both run live investigations on a player's machine, so verify the source yourself before installing anything on staff machines. <b>Microsoft Sysinternals</b> (Process Explorer, Autoruns) is the gold standard and needs no third party at all. See the <a href="tools.html">tool directory and the 7-point safety rubric</a> for the rest, including the scam patterns to avoid.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I know if an SS tool is a scam?</summary>
+          <p>Score it on seven points and walk away at three misses: official source only (never a Discord DM, short link, or lookalike domain); verifiable publisher (signed binaries or a public repo); it never asks you to disable antivirus or load unsigned drivers; transparent about what data leaves the machine; honest pricing with no "discounted pins" or cracked builds; used by networks whose public SS policies you can read; and it stays in its lane — tools detect, humans decide. A tool promising "instant bans" or undetectability is selling you someone else's bypass.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I practise a Minecraft screenshare before running a real one?</summary>
+          <p>Yes — <a href="practice.html">the practice simulator</a> runs three cases against simulated machines. You are the checker: you run the protocol tests, keep the suspect talking on comms while you work, cite only what you verified by hand, answer a field test, then defend the file when an appeal panel challenges your citations. Case 01 is blatant, case 02 is the deleted-evidence case that looks clean in Task Manager, and case 03 is the one where the correct verdict is to let the player walk. Your report is scored on evidence, procedure and conduct.</p>
+        </details>
       </div>
     </section>
 

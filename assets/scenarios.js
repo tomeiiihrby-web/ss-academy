@@ -305,56 +305,6 @@ C:\\> sc query vboxService
 Signer: EngineHub Inc. (chain valid)`
       }
     ],
-    mods: [
-      { id: "mb_begger", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
-2026-05-04 12:22        184,320  better-weather-1.8.jar
-2026-05-04 12:22        307,200  auto-craft-1.8.jar
-2026-05-04 12:22        258,048  fast-login-1.8.jar
-2026-05-04 12:22        196,608  health-bar-1.8.jar
-2026-05-04 12:22        229,376  rain-boost-1.8.jar
-2026-05-04 12:22        235,520  auto-enchant-1.8.jar
-2026-05-04 12:22        311,296  anti-kill-1.8.jar
-2026-05-04 12:22        225,280  fast-break-1.8.jar
-2026-05-04 12:22        245,760  auto-sneak-1.8.jar
-2026-05-04 12:22        314,112  long-punch-1.8.jar
-2026-05-04 12:22        212,992  aim-compensate-1.8.jar
-2026-05-04 12:22        240,896  x-ray-1.8.jar
-2026-05-04 12:22        327,680  hog-1.8.jar
-2026-05-04 12:22        294,912  bed-rocket-1.8.jar
-2026-05-04 12:22        286,720  auto-armor-1.8.jar
-2026-05-04 12:22        262,144  fast-drops-1.8.jar
-2026-05-04 12:22        303,104  knockback-1.8.jar
-2026-05-04 12:22        253,952  fast-water-1.8.jar
-2026-05-04 12:22        322,560  auto-potion-1.8.jar
-2026-05-04 12:22        270,336  fast-mine-1.8.jar
-2026-05-04 12:22        282,240  auto-ping-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-22`
-      },
-      { id: "mb_hack", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
-2026-09-14 19:01        65,536  unknownoum-1.8.jar
-2026-09-14 19:01        58,368  fast-move-1.8.jar
-2026-09-14 19:01        61,440  xray-plus-1.8.jar
-2026-09-14 19:01        55,296  aim-lock-1.8.jar
-2026-09-14 19:01        62,464  auto-click-1.8.jar
-2026-09-14 19:01        52,224  kill-bot-1.8.jar
-2026-09-14 19:01        63,488  wall-see-1.8.jar
-2026-09-14 19:01        57,344  bow-speed-1.8.jar
-2026-09-14 19:01        54,272  smart-breach-1.8.jar
-2026-09-14 19:01        59,392  hitbox-1.8.jar
-2026-09-14 19:01        60,416  no-errors-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-12`
-      }
-    ],
     processes: [
       { id: "p_javaw", title: "javaw.exe", meta: "PID 7412 · Oracle", kind: "neutral",
         detail:
@@ -1381,6 +1331,14 @@ C:\\> sc query vboxService
     PID9840 injector.exe → PROCESS_VM_WRITE | PROCESS_VM_OPERATION → PID7412 (javaw.exe)
     payload : C:\\Users\\Steve\\AppData\\Local\\Temp\\load.dll
 [12:04:09] [SCAN] rule HANDLE_CROSSPROCESS @ weight0.97` },
+        { id: "x_pack", title: "MOD_PACK_UNVERIFIED", meta: "severity: warning", kind: "support", needs: "mf_max",
+          detail:
+`[12:04:11] [SCAN] mod folder walk →3 folders
+    mods-begg-1.8  →22 jars · 21 hash-known · 1 unknown
+    mods-hx-1.20   →64 jars · 63 hash-known · 1 unknown
+    mods-zeta-1.20 →128 jars · 0 hash-known · 128 unknown
+[12:04:11] [SCAN] rule MOD_LIST_UNVERIFIED @ weight0.44 · no pack manifest published for 1.8/1.20
+[12:04:11] [SCAN] note: pack contents are not classified - enumerate the folder yourself` },
         { id: "x_clean", title: "SYSTEM_SERVICES", meta: "severity: info", kind: "neutral",
           detail:
 `[12:04:11] [SCAN] service watchlist → EventLog:RUNNING SysMain:RUNNING DcomLaunch:RUNNING
@@ -1590,56 +1548,6 @@ tables:
 [00:00:05] 21 mods found in mods\\ folder
 [00:00:06] 2026-09-30 20:54:01 0.251s  java -Xmx2G -jar minecraft.jar --version 1.8.9
 [00:00:07] Game ready.`
-      }
-    ],
-    mods: [
-      { id: "mb_begger2", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
-2026-05-04 12:22        184,320  better-weather-1.8.jar
-2026-05-04 12:22        307,200  auto-craft-1.8.jar
-2026-05-04 12:22        258,048  fast-login-1.8.jar
-2026-05-04 12:22        196,608  health-bar-1.8.jar
-2026-05-04 12:22        229,376  rain-boost-1.8.jar
-2026-05-04 12:22        235,520  auto-enchant-1.8.jar
-2026-05-04 12:22        311,296  anti-kill-1.8.jar
-2026-05-04 12:22        225,280  fast-break-1.8.jar
-2026-05-04 12:22        245,760  auto-sneak-1.8.jar
-2026-05-04 12:22        314,112  long-punch-1.8.jar
-2026-05-04 12:22        212,992  aim-compensate-1.8.jar
-2026-05-04 12:22        240,896  x-ray-1.8.jar
-2026-05-04 12:22        327,680  hog-1.8.jar
-2026-05-04 12:22        294,912  bed-rocket-1.8.jar
-2026-05-04 12:22        286,720  auto-armor-1.8.jar
-2026-05-04 12:22        262,144  fast-drops-1.8.jar
-2026-05-04 12:22        303,104  knockback-1.8.jar
-2026-05-04 12:22        253,952  fast-water-1.8.jar
-2026-05-04 12:22        322,560  auto-potion-1.8.jar
-2026-05-04 12:22        270,336  fast-mine-1.8.jar
-2026-05-04 12:22        282,240  auto-ping-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-22`
-      },
-      { id: "mb_hack2", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
-2026-09-14 19:01        65,536  unknownoum-1.8.jar
-2026-09-14 19:01        58,368  fast-move-1.8.jar
-2026-09-14 19:01        61,440  xray-plus-1.8.jar
-2026-09-14 19:01        55,296  aim-lock-1.8.jar
-2026-09-14 19:01        62,464  auto-click-1.8.jar
-2026-09-14 19:01        52,224  kill-bot-1.8.jar
-2026-09-14 19:01        63,488  wall-see-1.8.jar
-2026-09-14 19:01        57,344  bow-speed-1.8.jar
-2026-09-14 19:01        54,272  smart-breach-1.8.jar
-2026-09-14 19:01        59,392  hitbox-1.8.jar
-2026-09-14 19:01        60,416  no-errors-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-12`
       }
     ],
     processes: [
@@ -2440,56 +2348,6 @@ tables:
 [00:00:05] 21 mods found in mods\\ folder
 [00:00:06] 2026-09-30 18:11:59 0.251s  java -Xmx2G -jar minecraft.jar --version 1.8.9
 [00:00:07] Game ready.`
-      }
-    ],
-    mods: [
-      { id: "mb_begger3", title: "Begger mod pack (22 mods)", meta: "22 entries · 2026-05-04", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-05-04 12:22        512,032  cosmetic-elytra-tweaks-1.8.jar
-2026-05-04 12:22        184,320  better-weather-1.8.jar
-2026-05-04 12:22        307,200  auto-craft-1.8.jar
-2026-05-04 12:22        258,048  fast-login-1.8.jar
-2026-05-04 12:22        196,608  health-bar-1.8.jar
-2026-05-04 12:22        229,376  rain-boost-1.8.jar
-2026-05-04 12:22        235,520  auto-enchant-1.8.jar
-2026-05-04 12:22        311,296  anti-kill-1.8.jar
-2026-05-04 12:22        225,280  fast-break-1.8.jar
-2026-05-04 12:22        245,760  auto-sneak-1.8.jar
-2026-05-04 12:22        314,112  long-punch-1.8.jar
-2026-05-04 12:22        212,992  aim-compensate-1.8.jar
-2026-05-04 12:22        240,896  x-ray-1.8.jar
-2026-05-04 12:22        327,680  hog-1.8.jar
-2026-05-04 12:22        294,912  bed-rocket-1.8.jar
-2026-05-04 12:22        286,720  auto-armor-1.8.jar
-2026-05-04 12:22        262,144  fast-drops-1.8.jar
-2026-05-04 12:22        303,104  knockback-1.8.jar
-2026-05-04 12:22        253,952  fast-water-1.8.jar
-2026-05-04 12:22        322,560  auto-potion-1.8.jar
-2026-05-04 12:22        270,336  fast-mine-1.8.jar
-2026-05-04 12:22        282,240  auto-ping-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-22`
-      },
-      { id: "mb_hack3", title: "Hack client folder (12 entries)", meta: "12 entries · 2026-09-14", kind: "neutral",
-        detail:
-`C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir
-2026-09-14 19:02        98,304  ReachPlus-1.8.9.jar
-2026-09-14 19:01        65,536  unknownoum-1.8.jar
-2026-09-14 19:01        58,368  fast-move-1.8.jar
-2026-09-14 19:01        61,440  xray-plus-1.8.jar
-2026-09-14 19:01        55,296  aim-lock-1.8.jar
-2026-09-14 19:01        62,464  auto-click-1.8.jar
-2026-09-14 19:01        52,224  kill-bot-1.8.jar
-2026-09-14 19:01        63,488  wall-see-1.8.jar
-2026-09-14 19:01        57,344  bow-speed-1.8.jar
-2026-09-14 19:01        54,272  smart-breach-1.8.jar
-2026-09-14 19:01        59,392  hitbox-1.8.jar
-2026-09-14 19:01        60,416  no-errors-1.8.jar
-
-C:\\Users\\Steve\\AppData\\Roaming\\.minecraft\\mods> dir | find /c "jar"
-12`
       }
     ],
     processes: [
